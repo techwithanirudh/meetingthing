@@ -178,7 +178,7 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
               </ClerkLoading>
               <div
                 className={cn(
-                  'h-[36px] overflow-hidden transition-all [&>div]:w-full empty:hidden',
+                  'h-[36px] overflow-hidden transition-all empty:hidden [&>div]:w-full',
                   sidebar.open ? '' : '-mx-1'
                 )}
               >
