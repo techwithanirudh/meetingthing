@@ -2,11 +2,11 @@ import { sql } from 'drizzle-orm';
 import { integer, pgTable, varchar, timestamp } from 'drizzle-orm/pg-core';
 
 export const pages = pgTable('pages', {
-  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
   name: varchar({ length: 255 }).notNull(),
   email: varchar({ length: 255 }).notNull().unique(),
-  created_at: timestamp().defaultNow().notNull(),
-  deleted_at: timestamp(),
+  createdAt: timestamp().defaultNow().notNull(),
+  deletedAt: timestamp(),
 });
 
 export type InsertPost = typeof pages.$inferInsert;
