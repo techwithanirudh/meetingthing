@@ -6,7 +6,7 @@ export default defineConfig({
   out: './migrations',
   dialect: 'postgresql',
   dbCredentials: {
-    url: env.DATABASE_URL,
+    url: env.XATA_DATABASE_URL,
   },
-  casing: 'camelCase'
+  casing: 'camelCase',
 });
