@@ -2,7 +2,9 @@
   "crons": [
     {
       "path": "/cron/keep-alive",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 0 * * *" 
     }
   ]
 }
+
+// jsonc -- change the cron from */10 * * * * to 0 0 * * *
