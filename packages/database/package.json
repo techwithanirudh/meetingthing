@@ -7,7 +7,9 @@
     "build": "prisma generate --no-hints"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
     "@neondatabase/serverless": "^0.10.3",
+    "@prisma/adapter-libsql": "^5.22.0",
     "@prisma/adapter-neon": "^5.22.0",
     "@prisma/client": "5.22.0",
     "@repo/env": "workspace:*",

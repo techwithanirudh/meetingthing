@@ -1,18 +1,18 @@
 import 'server-only';
 
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
+import { PrismaLibSQL } from '@prisma/adapter-libsql';
 import { PrismaClient } from '@prisma/client';
+import { createClient } from '@libsql/client';
 import { env } from '@repo/env';
-import ws from 'ws';
-
-neonConfig.webSocketConstructor = ws;
 
 declare global {
   var cachedPrisma: PrismaClient | undefined;
 }
 
-const pool = new Pool({ connectionString: env.DATABASE_URL });
-const adapter = new PrismaNeon(pool);
+const libsql = createClient({
+  url: `${env.TURSO_DATABASE_URL}`,
+  authToken: `${env.TURSO_AUTH_TOKEN}`,
+})
+const adapter = new PrismaLibSQL(libsql);
 
 export const database = new PrismaClient({ adapter });
