@@ -1,14 +1,12 @@
 import { sql } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, pgTable, varchar, timestamp } from 'drizzle-orm/pg-core';
 
-export const pages = sqliteTable('pages', {
-  id: integer('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull().unique(),
-  createdAt: text('created_at').default(sql`(CURRENT_TIMESTAMP)`).notNull(),
-  updateAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(
-    () => new Date()
-  ),
+export const pages = pgTable('pages', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({ length: 255 }).notNull(),
+  email: varchar({ length: 255 }).notNull().unique(),
+  created_at: timestamp().defaultNow().notNull(),
+  deleted_at: timestamp(),
 });
 
 export type InsertPost = typeof pages.$inferInsert;
