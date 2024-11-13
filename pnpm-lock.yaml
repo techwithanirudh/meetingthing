@@ -398,15 +398,9 @@ importers:
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0(bufferutil@4.0.8)
-      '@neondatabase/serverless':
-        specifier: ^0.10.3
-        version: 0.10.3
       '@prisma/adapter-libsql':
         specifier: ^5.22.0
         version: 5.22.0(@libsql/client@0.14.0(bufferutil@4.0.8))
-      '@prisma/adapter-neon':
-        specifier: ^5.22.0
-        version: 5.22.0(@neondatabase/serverless@0.10.3)
       '@prisma/client':
         specifier: 5.22.0
         version: 5.22.0(prisma@5.22.0)
@@ -419,9 +413,6 @@ importers:
       undici:
         specifier: ^6.20.1
         version: 6.20.1
-      ws:
-        specifier: ^8.18.0
-        version: 8.18.0(bufferutil@4.0.8)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -429,9 +420,6 @@ importers:
       '@types/node':
         specifier: 22.9.0
         version: 22.9.0
-      '@types/ws':
-        specifier: ^8.5.13
-        version: 8.5.13
       bufferutil:
         specifier: ^4.0.8
         version: 4.0.8
@@ -1885,9 +1873,6 @@ packages:
   '@neon-rs/load@0.0.4':
     resolution: {integrity: sha512-kTPhdZyTQxB+2wpiRcFWrDcejc4JI6tkPuS7UZCG4l6Zvc5kU/gGQ/ozvHTh1XR5tS+UlfAfGuPajjzQjCiHCw==}
 
-  '@neondatabase/serverless@0.10.3':
-    resolution: {integrity: sha512-F4kqSj++GUwLnO3OzPb95Y/xn3qVLkjJA/36YTqT7c3MRgA/IBOIs/Is1+HBZkGfEwfMG3A9tFkxiEg5eBjxDw==}
-
   '@next/bundle-analyzer@15.0.3':
     resolution: {integrity: sha512-x7ZNvpoQPO0C5ZG//qVp21Qs3v6+C8LBJmdu9DKj4/NmjlnwoQ7dqRZ/nKZcwVhkFT7BHf+Qd5FaeHq9IDJvDQ==}
 
@@ -2419,11 +2404,6 @@ packages:
     resolution: {integrity: sha512-6Lox7JqNfMdnpb6CblZ/DcuU5OmP2lRBGIPkdnMq0wGqC7fq7DQURZGpDSAZL/mI9sbR/aUKyeo31FLqg97dsw==}
     peerDependencies:
       '@libsql/client': ^0.3.5 || ^0.4.0 || ^0.5.0 || ^0.6.0 || ^0.7.0 || ^0.8.0
-
-  '@prisma/adapter-neon@5.22.0':
-    resolution: {integrity: sha512-yslwDPykmkVfrlyK3T9idewFcjINnqbkHZYJRxetoOZZSjBlJqqhsZxpJ/dEedUzeWaeDlWOgSEKjQKI46/A9w==}
-    peerDependencies:
-      '@neondatabase/serverless': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0
 
   '@prisma/client@5.22.0':
     resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
@@ -9045,10 +9025,6 @@ snapshots:
 
   '@neon-rs/load@0.0.4': {}
 
-  '@neondatabase/serverless@0.10.3':
-    dependencies:
-      '@types/pg': 8.11.6
-
   '@next/bundle-analyzer@15.0.3(bufferutil@4.0.8)':
     dependencies:
       webpack-bundle-analyzer: 4.10.1(bufferutil@4.0.8)
@@ -9588,12 +9564,6 @@ snapshots:
       '@libsql/client': 0.14.0(bufferutil@4.0.8)
       '@prisma/driver-adapter-utils': 5.22.0
       async-mutex: 0.5.0
-
-  '@prisma/adapter-neon@5.22.0(@neondatabase/serverless@0.10.3)':
-    dependencies:
-      '@neondatabase/serverless': 0.10.3
-      '@prisma/driver-adapter-utils': 5.22.0
-      postgres-array: 3.0.2
 
   '@prisma/client@5.22.0(prisma@5.22.0)':
     optionalDependencies:
