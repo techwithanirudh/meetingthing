@@ -3,16 +3,16 @@
   "version": "0.0.0",
   "exports": {
     ".": {
-      "types": "./index.ts",
-      "default": "./index.ts"
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
     },
     "./client": {
-      "types": "./client.ts",
-      "default": "./client.ts"
+      "types": "./src/client.ts",
+      "default": "./src/client.ts"
     },
     "./schema": {
-      "types": "./schema.ts",
-      "default": "./schema.ts"
+      "types": "./src/schema.ts",
+      "default": "./src/schema.ts"
     }
   },
   "scripts": {
@@ -20,8 +20,9 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@libsql/client": "^0.14.0",
     "@repo/env": "workspace:*",
+    "@xata.io/client": "0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.1",
     "server-only": "^0.0.1",
     "undici": "^6.20.1"
@@ -31,6 +32,7 @@
     "@types/node": "22.9.0",
     "bufferutil": "^4.0.8",
     "drizzle-kit": "^0.28.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }
 }

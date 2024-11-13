@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Anirudh-s-workspace-9992f4.us-east-1.xata.sh/db/meetingthing",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
