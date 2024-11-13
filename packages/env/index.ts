@@ -6,7 +6,7 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
   CLERK_WEBHOOK_SECRET: z.string().min(1).startsWith('whsec_'),
   RESEND_AUDIENCE_ID: z.string().min(1),
   RESEND_FROM: z.string().min(1).email(),
-  XATA_BRANCH: z.string().min(1),
+  XATA_BRANCH: z.string().min(1).optional(),
   XATA_API_KEY: z.string().min(1),
   XATA_DATABASE_URL: z.string().min(1).url(),
   RESEND_TOKEN: z.string().min(1).startsWith('re_'),
