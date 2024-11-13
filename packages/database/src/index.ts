@@ -1,2 +1,2 @@
 export * from 'drizzle-orm/sql';
-export * from 'drizzle-orm/xata-http';
+export * from 'drizzle-orm/pg-core';
