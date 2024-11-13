@@ -20,8 +20,8 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^0.10.3",
     "@repo/env": "workspace:*",
-    "@xata.io/client": "0.0.0-next.va121e4207b94bfe0a3c025fc00b247b923880930",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.1",
     "server-only": "^0.0.1",
