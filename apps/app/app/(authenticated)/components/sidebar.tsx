@@ -1,6 +1,6 @@
 'use client';
 
-import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
+import { ClerkLoading, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { ModeToggle } from '@repo/design-system/components/mode-toggle';
 import {
   Collapsible,
@@ -32,6 +32,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '@repo/design-system/components/ui/sidebar';
+import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import { cn } from '@repo/design-system/lib/utils';
 import {
   BookOpenIcon,
@@ -49,38 +50,19 @@ import {
   SquareTerminalIcon,
   Trash2Icon,
 } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
 
 type GlobalSidebarProperties = {
   readonly children: ReactNode;
 };
 
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
+      title: 'Meetings',
+      url: '/',
       icon: SquareTerminalIcon,
       isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
     },
     {
       title: 'Models',
@@ -188,9 +170,15 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
+              <ClerkLoading>
+                <div className='flex h-[36px] items-center gap-2 px-2 py-1.5'>
+                  <Skeleton className="size-6 rounded-lg" />
+                  <Skeleton className="h-4 w-32" />
+                </div>
+              </ClerkLoading>
               <div
                 className={cn(
-                  'h-[36px] overflow-hidden transition-all [&>div]:w-full',
+                  'h-[36px] overflow-hidden transition-all [&>div]:w-full empty:hidden',
                   sidebar.open ? '' : '-mx-1'
                 )}
               >
@@ -314,18 +302,25 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
+            <ClerkLoading>
+              <div className="flex items-center gap-2 px-2 py-1.5">
+                <Skeleton className="size-7 rounded-full" />
+                <Skeleton className="h-4 w-32" />
+              </div>
+            </ClerkLoading>
             <SidebarMenuItem className="flex items-center gap-2">
               <UserButton
                 showName
                 appearance={{
                   elements: {
-                    rootBox: 'flex overflow-hidden',
-                    userButtonBox: 'flex-row-reverse',
+                    rootBox: 'flex overflow-hidden w-full rounded-md',
+                    userButtonTrigger:
+                      'w-full focus:shadow-none [&.cl-open]:bg-secondary/90 hover:bg-secondary/90 px-2 py-1.5 transition-colors justify-start',
+                    userButtonBox: 'flex-row-reverse w-min',
                     userButtonOuterIdentifier: 'truncate pl-0',
                   },
                 }}
               />
-              <ModeToggle />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
