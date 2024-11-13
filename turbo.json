@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build", "test"],
@@ -16,6 +17,14 @@
       "dependsOn": ["^analyze"]
     },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "push": {
+      "cache": false,
+      "interactive": true
+    },
+    "studio": {
       "cache": false,
       "persistent": true
     }
