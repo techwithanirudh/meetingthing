@@ -13,7 +13,7 @@ import { Button } from '@repo/design-system/components/ui/button';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
-import { JoinMeeting } from './components/join-meeting';
+import { RecordMeeting } from './components/record-meeting';
 
 const title = 'Acme Inc';
 const description = 'My application.';
@@ -40,7 +40,7 @@ const App = async () => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <JoinMeeting />
+        <RecordMeeting />
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">

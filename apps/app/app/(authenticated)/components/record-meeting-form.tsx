@@ -2,7 +2,7 @@
 
 import { useAction } from 'next-safe-action/hooks';
 
-import type { JoinMeeting } from '@repo/validators';
+import type { RecordMeeting } from '@repo/validators';
 import { Button } from '@repo/design-system/components/ui/button';
 import {
   Form,
@@ -15,24 +15,25 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Input } from '@repo/design-system/components/ui/input';
-import { JoinMeetingSchema } from '@repo/validators';
+import { RecordMeetingSchema } from '@repo/validators';
 
 import { FormError } from './form-error';
-import { joinMeeting } from '@/app/actions/join-meeting-action';
+import { recordMeeting } from '@/app/actions/record-meeting-action';
 
 import { LoaderCircleIcon } from 'lucide-react';
+import { FormSuccess } from './form-success';
 
-export const JoinMeetingForm = () => {
+export const RecordMeetingForm = () => {
   const form = useForm({
-    resolver: zodResolver(JoinMeetingSchema),
+    resolver: zodResolver(RecordMeetingSchema),
     defaultValues: {
       meetingURL: '',
     },
   });
 
-  const { execute, result, status } = useAction(joinMeeting);
+  const { execute, result, status } = useAction(recordMeeting);
 
-  const onSubmit = (values: JoinMeeting) => {
+  const onSubmit = (values: RecordMeeting) => {
     execute(values);
   };
 
@@ -61,6 +62,9 @@ export const JoinMeetingForm = () => {
         </div>
 
         <FormError message={result.serverError} />
+        {status === 'hasSucceeded' && (
+          <FormSuccess message={'A meeting bot will join the meeting soon.'} />
+        )}
 
         <Button
           disabled={status === 'executing'}

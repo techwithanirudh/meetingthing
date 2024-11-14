@@ -1,5 +1,5 @@
 import React from 'react';
-import { JoinMeetingForm } from './join-meeting-form';
+import { RecordMeetingForm } from './record-meeting-form';
 import {
   Dialog,
   DialogContent,
@@ -11,7 +11,7 @@ import {
 import { Button } from '@repo/design-system/components/ui/button';
 import { Disc2Icon } from 'lucide-react';
 
-export function JoinMeeting() {
+export function RecordMeeting() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -26,7 +26,7 @@ export function JoinMeeting() {
             Quickly record meetings using the meeting URL.
           </DialogDescription>
         </DialogHeader>
-        <JoinMeetingForm />
+        <RecordMeetingForm />
       </DialogContent>
     </Dialog>
   );
