@@ -6,12 +6,14 @@ import { meetingsTable } from '@repo/database/src/schema';
 import { log } from '@repo/observability/log';
 import { RecordMeetingSchema } from '@repo/validators';
 import { revalidatePath } from 'next/cache';
+import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
 
 export const recordMeeting = actionClient
   .schema(RecordMeetingSchema)
   // biome-ignore lint/suspicious/useAwait: <explanation>
   .action(async ({ parsedInput: { meetingURL } }) => {
     if (meetingURL) {
+      const data = await recordMeetingBot(meetingURL);
       const meeting = await database
         .insert(meetingsTable)
         .values({
@@ -22,8 +24,9 @@ export const recordMeeting = actionClient
         .returning({
           id: meetingsTable.id,
         });
-
+      
       revalidatePath('/');
+
       log.info(`Meeting created with id: ${meeting[0].id}`);
 
       return {

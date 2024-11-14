@@ -9,14 +9,17 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
-import { Card, CardHeader, CardTitle } from '@repo/design-system/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+} from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
-import { RecordMeeting } from './components/record-meeting';
-import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
-const title = 'Acme Inc';
+const title = 'Acme Inc | Meeting';
 const description = 'My application.';
 
 export const metadata: Metadata = {
@@ -24,9 +27,7 @@ export const metadata: Metadata = {
   description,
 };
 
-const App = async () => {
-  const meetings = await database.query.meetingsTable.findMany();
-
+const Meeting = ({ params }: { params: { id: string } }) => {
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 justify-between w-full">
@@ -36,30 +37,21 @@ const App = async () => {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbPage>Meetings</BreadcrumbPage>
+                <BreadcrumbLink href="/">Meetings</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{params.id}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <RecordMeeting />
       </header>
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          {meetings.map((meeting) => (
-            <Link
-              href={`/meeting/${meeting.id}`}
-              key={meeting.id}
-              className="aspect-video rounded-xl bg-muted/50"
-            >
-              <CardHeader>
-                <CardTitle>{meeting.name}</CardTitle>
-              </CardHeader>
-            </Link>
-          ))}
-        </div>
+      <div>
+        {params.id}
       </div>
     </>
   );
 };
 
-export default App;
+export default Meeting;

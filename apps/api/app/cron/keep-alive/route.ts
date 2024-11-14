@@ -6,9 +6,9 @@ export const POST = async () => {
   const newPage = await database
     .insert(meetingsTable)
     .values({
-      name: 'New Meeting',
+      name: 'Impromptu Meeting',
       type: 'meetingbaas',
-      status: 'loaded',
+      status: 'loading',
     })
     .returning({
       id: meetingsTable.id,
