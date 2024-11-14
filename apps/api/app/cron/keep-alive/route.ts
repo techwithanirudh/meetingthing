@@ -1,19 +1,22 @@
 import { eq } from '@repo/database';
 import { database } from '@repo/database/client';
-import { pages } from '@repo/database/schema';
+import { meetingsTable } from '@repo/database/schema';
 
 export const POST = async () => {
   const newPage = await database
-    .insert(pages)
+    .insert(meetingsTable)
     .values({
-      name: 'cron-temp',
-      email: 'test@test.com',
+      name: 'New Meeting',
+      type: 'meetingbaas',
+      status: 'loaded',
     })
     .returning({
-      id: pages.id,
+      id: meetingsTable.id,
     });
 
-  await database.delete(pages).where(eq(pages.id, newPage[0].id));
+  await database
+    .delete(meetingsTable)
+    .where(eq(meetingsTable.id, newPage[0].id));
 
   return new Response('OK', { status: 200 });
 };

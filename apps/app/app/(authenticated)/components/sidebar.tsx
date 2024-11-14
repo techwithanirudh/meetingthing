@@ -1,6 +1,6 @@
 'use client';
 
-import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
+import { ClerkLoading, OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { ModeToggle } from '@repo/design-system/components/mode-toggle';
 import {
   Collapsible,
@@ -32,6 +32,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '@repo/design-system/components/ui/sidebar';
+import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import { cn } from '@repo/design-system/lib/utils';
 import {
   BookOpenIcon,
@@ -39,94 +40,77 @@ import {
   ChevronRightIcon,
   FolderIcon,
   FrameIcon,
+  LibraryIcon,
   LifeBuoyIcon,
   MapIcon,
   MoreHorizontalIcon,
   PieChartIcon,
+  PresentationIcon,
   SendIcon,
   Settings2Icon,
   ShareIcon,
   SquareTerminalIcon,
   Trash2Icon,
 } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { Suspense, type ReactNode } from 'react';
 
 type GlobalSidebarProperties = {
   readonly children: ReactNode;
 };
 
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminalIcon,
+      title: 'Meetings',
+      url: '/',
+      icon: LibraryIcon,
       isActive: true,
-      items: [
-        {
-          title: 'History',
-          url: '#',
-        },
-        {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
     },
-    {
-      title: 'Models',
-      url: '#',
-      icon: BotIcon,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
-        },
-        {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpenIcon,
-      items: [
-        {
-          title: 'Introduction',
-          url: '#',
-        },
-        {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
+    // {
+    //   title: 'Models',
+    //   url: '#',
+    //   icon: BotIcon,
+    //   items: [
+    //     {
+    //       title: 'Genesis',
+    //       url: '#',
+    //     },
+    //     {
+    //       title: 'Explorer',
+    //       url: '#',
+    //     },
+    //     {
+    //       title: 'Quantum',
+    //       url: '#',
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: 'Documentation',
+    //   url: '#',
+    //   icon: BookOpenIcon,
+    //   items: [
+    //     {
+    //       title: 'Introduction',
+    //       url: '#',
+    //     },
+    //     {
+    //       title: 'Get Started',
+    //       url: '#',
+    //     },
+    //     {
+    //       title: 'Tutorials',
+    //       url: '#',
+    //     },
+    //     {
+    //       title: 'Changelog',
+    //       url: '#',
+    //     },
+    //   ],
+    // },
     {
       title: 'Settings',
-      url: '#',
+      url: '/settings',
       icon: Settings2Icon,
       items: [
         {
@@ -160,23 +144,6 @@ const data = {
       icon: SendIcon,
     },
   ],
-  projects: [
-    {
-      name: 'Design Engineering',
-      url: '#',
-      icon: FrameIcon,
-    },
-    {
-      name: 'Sales & Marketing',
-      url: '#',
-      icon: PieChartIcon,
-    },
-    {
-      name: 'Travel',
-      url: '#',
-      icon: MapIcon,
-    },
-  ],
 };
 
 export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
@@ -188,9 +155,15 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         <SidebarHeader>
           <SidebarMenu>
             <SidebarMenuItem>
+              <ClerkLoading>
+                <div className='flex h-[36px] items-center gap-2 px-2 py-1.5'>
+                  <Skeleton className="size-6 rounded-lg" />
+                  <Skeleton className="h-4 w-32" />
+                </div>
+              </ClerkLoading>
               <div
                 className={cn(
-                  'h-[36px] overflow-hidden transition-all [&>div]:w-full',
+                  'h-[36px] overflow-hidden transition-all empty:hidden [&>div]:w-full',
                   sidebar.open ? '' : '-mx-1'
                 )}
               >
@@ -247,54 +220,6 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
               ))}
             </SidebarMenu>
           </SidebarGroup>
-          <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarMenu>
-              {data.projects.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.name}</span>
-                    </a>
-                  </SidebarMenuButton>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <SidebarMenuAction showOnHover>
-                        <MoreHorizontalIcon />
-                        <span className="sr-only">More</span>
-                      </SidebarMenuAction>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-48"
-                      side="bottom"
-                      align="end"
-                    >
-                      <DropdownMenuItem>
-                        <FolderIcon className="text-muted-foreground" />
-                        <span>View Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <ShareIcon className="text-muted-foreground" />
-                        <span>Share Project</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>
-                        <Trash2Icon className="text-muted-foreground" />
-                        <span>Delete Project</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </SidebarMenuItem>
-              ))}
-              <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <MoreHorizontalIcon />
-                  <span>More</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
           <SidebarGroup className="mt-auto">
             <SidebarGroupContent>
               <SidebarMenu>
@@ -314,18 +239,25 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
         </SidebarContent>
         <SidebarFooter>
           <SidebarMenu>
+            <ClerkLoading>
+              <div className="flex items-center gap-2 px-2 py-1.5">
+                <Skeleton className="size-7 rounded-full" />
+                <Skeleton className="h-4 w-32" />
+              </div>
+            </ClerkLoading>
             <SidebarMenuItem className="flex items-center gap-2">
               <UserButton
                 showName
                 appearance={{
                   elements: {
-                    rootBox: 'flex overflow-hidden',
-                    userButtonBox: 'flex-row-reverse',
+                    rootBox: 'flex overflow-hidden w-full rounded-md',
+                    userButtonTrigger:
+                      'w-full focus:shadow-none [&.cl-open]:bg-secondary/90 hover:bg-secondary/90 px-2 py-1.5 transition-colors justify-start',
+                    userButtonBox: 'flex-row-reverse w-min',
                     userButtonOuterIdentifier: 'truncate pl-0',
                   },
                 }}
               />
-              <ModeToggle />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>
