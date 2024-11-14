@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
-import { Button } from '@repo/design-system/components/ui/button';
+import { Card, CardHeader, CardTitle } from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
@@ -45,12 +45,16 @@ const App = async () => {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           {meetings.map((meeting) => (
-            <div
+            <Card
               key={meeting.id}
               className="aspect-video rounded-xl bg-muted/50"
+              
             >
-              {meeting.name}
-            </div>
+              <CardHeader>
+                <CardTitle>{meeting.name}</CardTitle>
+
+              </CardHeader>
+            </Card>
           ))}
         </div>
       </div>
