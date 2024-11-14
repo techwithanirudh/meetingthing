@@ -2,19 +2,15 @@
 
 import { z } from 'zod';
 import { actionClient } from '@/lib/safe-action';
-
-const schema = z.object({
-  username: z.string().min(3).max(10),
-  password: z.string().min(8).max(100),
-});
+import { JoinMeetingSchema } from '@repo/validators';
 
 export const joinMeeting = actionClient
-  .schema(schema)
+  .schema(JoinMeetingSchema)
   // biome-ignore lint/suspicious/useAwait: <explanation>
-  .action(async ({ parsedInput: { username, password } }) => {
-    if (username === 'johndoe' && password === '123456') {
+  .action(async ({ parsedInput: { meetingURL } }) => {
+    if (meetingURL) {
       return {
-        success: 'Successfully logged in',
+        success: 'Successfully created in',
       };
     }
 

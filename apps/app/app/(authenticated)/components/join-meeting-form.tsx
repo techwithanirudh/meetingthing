@@ -2,19 +2,20 @@
 
 import { useAction } from 'next-safe-action/hooks';
 
-import type { SignIn } from '@repo/validators';
+import type { JoinMeeting } from '@repo/validators';
 import { Button } from '@repo/design-system/components/ui/button';
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from '@repo/design-system/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Input } from '@repo/design-system/components/ui/input';
-import { SignInSchema } from '@repo/validators';
+import { JoinMeetingSchema } from '@repo/validators';
 
 import { FormError } from './form-error';
 import { joinMeeting } from '@/app/actions/join-meeting-action';
@@ -23,16 +24,15 @@ import { LoaderCircleIcon } from 'lucide-react';
 
 export const JoinMeetingForm = () => {
   const form = useForm({
-    resolver: zodResolver(SignInSchema),
+    resolver: zodResolver(JoinMeetingSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      meetingURL: '',
     },
   });
 
   const { execute, result, status } = useAction(joinMeeting);
 
-  const onSubmit = (values: SignIn) => {
+  const onSubmit = (values: JoinMeeting) => {
     execute(values);
   };
 
@@ -42,35 +42,16 @@ export const JoinMeetingForm = () => {
         <div className="space-y-2">
           <FormField
             control={form.control}
-            name="email"
+            name="meetingURL"
             render={({ field }) => (
               <FormItem>
-                {/* <FormLabel>Email address</FormLabel> */}
+                <FormLabel>Meeting URL</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     disabled={status === 'executing'}
-                    placeholder="Email address"
-                    type="email"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                {/* <FormLabel>Password</FormLabel> */}
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={status === 'executing'}
-                    placeholder="Password"
-                    type="password"
+                    placeholder="https://meet.acme.com/123456789"
+                    type="url"
                   />
                 </FormControl>
                 <FormMessage />
@@ -89,7 +70,7 @@ export const JoinMeetingForm = () => {
           {status === 'executing' && (
             <LoaderCircleIcon className="mr-2 h-4 w-4 animate-spin" />
           )}
-          Continue with Email
+          Record Meeting
         </Button>
       </form>
     </Form>
