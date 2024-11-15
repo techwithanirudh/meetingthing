@@ -11,6 +11,9 @@ import {
 } from '@repo/design-system/components/ui/breadcrumb';
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@repo/design-system/components/ui/card';
@@ -19,6 +22,8 @@ import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { RecordMeeting } from './components/record-meeting';
 import Link from 'next/link';
+import { cn } from '@repo/design-system/lib/utils';
+import { Check, LoaderCircle } from 'lucide-react';
 
 const title = 'Acme Inc';
 const description = 'My application.';
@@ -55,11 +60,21 @@ const App = async () => {
             <Link
               href={`/meeting/${meeting.id}`}
               key={meeting.id}
-              className="aspect-video rounded-xl bg-muted/50"
+              className={cn('flex aspect-video cursor-pointer flex-col rounded-xl bg-muted/50', {
+                'bg-muted/30 pointer-events-none': meeting.status !== 'loaded',
+              })}
             >
               <CardHeader>
                 <CardTitle>{meeting.name}</CardTitle>
+                <CardDescription>{meeting?.botId}</CardDescription>
               </CardHeader>
+              <CardContent className='flex-1'>
+                
+              </CardContent>
+
+              <CardFooter className='flex w-full justify-end'>
+                {meeting.status === 'loading' ? <LoaderCircle className='animate-spin' /> : <Check />}
+              </CardFooter>
             </Link>
           ))}
         </div>

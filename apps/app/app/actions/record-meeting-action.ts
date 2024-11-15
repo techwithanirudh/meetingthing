@@ -23,10 +23,10 @@ export const recordMeeting = actionClient
       const meeting = await database
         .insert(meetingsTable)
         .values({
-          name: 'New Meeting',
+          name: 'Impromptu Meeting',
           provider: 'meetingbaas',
+          status: 'loading',
           botId: data.botId,
-          status: 'loaded',
         })
         .returning({
           id: meetingsTable.id,
