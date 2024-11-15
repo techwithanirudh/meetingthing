@@ -1,30 +1,25 @@
 import { database } from '@repo/database/client';
-import { meetingsTable } from '@repo/database/schema';
 
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
-import { Card, CardHeader, CardTitle } from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { RecordMeeting } from './components/record-meeting';
+import { MeetingsList } from './components/meetings-list';
+import { createMetadata } from '@repo/seo/metadata';
 
-const title = 'Acme Inc';
-const description = 'My application.';
+const title = 'Meetings';
+const description = 'View and manage your meetings.';
 
-export const metadata: Metadata = {
-  title,
-  description,
-};
+export const metadata: Metadata = createMetadata({ title, description });
 
 const App = async () => {
-  const meetings = await database.query.meetingsTable.findMany();
+  const meetings = await database.query.meetingsTable.findMany({});
 
   return (
     <>
@@ -35,28 +30,17 @@ const App = async () => {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="">Home</BreadcrumbLink>
+                <BreadcrumbPage>Meetings</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <RecordMeeting />
+        <div className="px-4">
+          <RecordMeeting />
+        </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          {meetings.map((meeting) => (
-            <Card
-              key={meeting.id}
-              className="aspect-video rounded-xl bg-muted/50"
-              
-            >
-              <CardHeader>
-                <CardTitle>{meeting.name}</CardTitle>
-
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
+        <MeetingsList meetings={meetings} />
       </div>
     </>
   );
