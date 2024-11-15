@@ -8,7 +8,7 @@ import {
   timestamp,
 } from 'drizzle-orm/pg-core';
 
-export const meetingTypeEnum = pgEnum('meeting_type', ['meetingbaas', 'local']);
+export const meetingProviderEnum = pgEnum('meeting_provider', ['meetingbaas', 'upload']);
 export const meetingStatusEnum = pgEnum('meeting_status', [
   'loaded',
   'loading',
@@ -17,8 +17,9 @@ export const meetingStatusEnum = pgEnum('meeting_status', [
 
 export const meetingsTable = pgTable('meetings', {
   id: serial('id').primaryKey(),
+  botId: text('bot_id'), // properly type this if it srequred if provider is meetingbaas
+  provider: meetingProviderEnum().notNull(),
   name: text('name').notNull(),
-  type: meetingTypeEnum().notNull(),
   status: meetingStatusEnum().notNull(),
   attendees: text('attendees').array().notNull().default(sql`'{}'::text[]`),
   endedAt: timestamp('ended_at', {

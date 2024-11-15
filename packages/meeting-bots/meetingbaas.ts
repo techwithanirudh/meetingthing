@@ -26,7 +26,8 @@ export const recordMeeting = async (meetingURL: string, botName?: string) => {
         automatic_leave: {
           waiting_room_timeout: 600,
         },
-        webhook_url: 'https://api.example.com/webhooks/meetingbaas',
+        webhook_url:
+          `${env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}/api/webhooks/meetingbaas`,
       },
     })
     .json<RecordMeetingResponse>();
