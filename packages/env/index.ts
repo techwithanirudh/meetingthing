@@ -28,7 +28,6 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
   VERCEL: z.string().optional(),
   NEXT_RUNTIME: z.enum(['nodejs', 'edge']).optional(),
   FLAGS_SECRET: z.string().min(1),
-  SVIX_TOKEN: process.env.SVIX_TOKEN,
 
   // Meeting Bots
   MEETING_BAAS_API_KEY: z.string().min(1),
@@ -72,6 +71,7 @@ export const env = createEnv({
     VERCEL: process.env.VERCEL,
     NEXT_RUNTIME: process.env.NEXT_RUNTIME,
     FLAGS_SECRET: process.env.FLAGS_SECRET,
+    SVIX_TOKEN: process.env.SVIX_TOKEN,
     MEETING_BAAS_API_KEY: process.env.MEETING_BAAS_API_KEY,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
