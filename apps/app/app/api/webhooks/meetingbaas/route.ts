@@ -3,6 +3,10 @@ import { eq, sql } from '@repo/database/src';
 import { database } from '@repo/database/src/client';
 import { meetingsTable } from '@repo/database/src/schema';
 import { env } from '@repo/env';
+import {
+  isStatusChangeWebhook,
+  isSuccessWebhook,
+} from '@repo/meeting-bots/types/meetingbaas';
 import { parseError } from '@repo/observability/error';
 import { log } from '@repo/observability/log';
 import { NextResponse } from 'next/server';
@@ -23,9 +27,12 @@ export const POST = async (request: Request): Promise<Response> => {
       );
     }
 
-    log.info(`event received: ${body?.event}`);
+    log.debug(`event received: ${body?.event}`);
 
-    if (body?.event === 'complete') {
+    if (isStatusChangeWebhook(body)) {
+      const { code, created_at } = body.data.status;
+      log.debug('status change webhook received', { code, created_at });
+    } else if (isSuccessWebhook(body)) {
       //   const meeting = await database.query.meetingsTable.findFirst({
       //     where: (meetings, { eq }) => eq(meetings.botId, body?.event?.data?.bot_id),
       //   });
@@ -39,10 +46,13 @@ export const POST = async (request: Request): Promise<Response> => {
         });
 
       if (meeting[0]) {
-        log.info(`meeting updated with id: ${meeting[0]?.id}`);
+        log.debug(`meeting updated with id: ${meeting[0].id}`);
       } else {
-        log.info(`failed to update meeting with bot_id: ${body?.data?.bot_id}`);
+        log.error(`failed to update meeting with bot_id: ${body.data.bot_id}`);
       }
+    } else {
+      const { error } = body.data;
+      log.error('meeting recording failed:', { error });
     }
 
     await analytics.shutdown();

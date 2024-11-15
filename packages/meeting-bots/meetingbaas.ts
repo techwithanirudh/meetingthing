@@ -1,9 +1,6 @@
 import { env } from '@repo/env';
 import ky from 'ky';
-
-export interface RecordMeetingResponse {
-  bot_id: string;
-}
+import type { RecordMeetingResponse } from './types/meetingbaas';
 
 // biome-ignore lint/style/useNamingConvention: url seems nice with caps
 export const recordMeeting = async (meetingURL: string, botName?: string) => {

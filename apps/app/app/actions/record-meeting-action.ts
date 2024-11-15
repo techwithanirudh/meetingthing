@@ -8,6 +8,7 @@ import { RecordMeetingSchema } from '@repo/validators';
 import { revalidatePath } from 'next/cache';
 import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
 import { currentUser } from '@clerk/nextjs/server';
+import { isSuccessWebhook } from '@repo/meeting-bots/types/meetingbaas';
 
 export const recordMeeting = actionClient
   .schema(RecordMeetingSchema)
@@ -31,8 +32,6 @@ export const recordMeeting = actionClient
         .returning({
           id: meetingsTable.id,
         });
-
-      revalidatePath('/');
 
       log.info(`Meeting created with id: ${meeting[0].id}`);
 
