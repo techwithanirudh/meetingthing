@@ -8,7 +8,10 @@ import {
   timestamp,
 } from 'drizzle-orm/pg-core';
 
-export const meetingProviderEnum = pgEnum('meeting_provider', ['meetingbaas', 'upload']);
+export const meetingProviderEnum = pgEnum('meeting_provider', [
+  'meetingbaas',
+  'upload',
+]);
 export const meetingStatusEnum = pgEnum('meeting_status', [
   'loaded',
   'loading',
@@ -17,11 +20,10 @@ export const meetingStatusEnum = pgEnum('meeting_status', [
 
 export const meetingsTable = pgTable('meetings', {
   id: serial('id').primaryKey(),
-  botId: text('bot_id'), // properly type this if it srequred if provider is meetingbaas
+  botId: text('bot_id'), 
   provider: meetingProviderEnum().notNull(),
   name: text('name').notNull(),
   status: meetingStatusEnum().notNull(),
-  attendees: text('attendees').array().notNull().default(sql`'{}'::text[]`),
   endedAt: timestamp('ended_at', {
     mode: 'date',
     withTimezone: true,
@@ -38,7 +40,14 @@ export const meetingsTable = pgTable('meetings', {
   }),
 });
 
-export const transcripts = pgTable('transcripts', {
+export const meetingsRelations = relations(meetingsTable, ({ one }) => ({
+  transcripts: one(transcriptsTable)
+}));
+
+export type InsertMeeting = typeof meetingsTable.$inferInsert;
+export type SelectMeeting = typeof meetingsTable.$inferSelect;
+
+export const transcriptsTable = pgTable('transcripts', {
   id: serial('id').primaryKey(),
   meetingId: serial('meeting_id')
     .notNull()
@@ -65,9 +74,12 @@ export const transcripts = pgTable('transcripts', {
   }),
 });
 
-export const transcriptsRelations = relations(transcripts, ({ one }) => ({
+export const transcriptsRelations = relations(transcriptsTable, ({ one }) => ({
   meeting: one(meetingsTable, {
-    fields: [transcripts.meetingId],
+    fields: [transcriptsTable.meetingId],
     references: [meetingsTable.id],
   }),
 }));
+
+export type InsertTranscript = typeof transcriptsTable.$inferInsert;
+export type SelectTranscript = typeof transcriptsTable.$inferSelect;

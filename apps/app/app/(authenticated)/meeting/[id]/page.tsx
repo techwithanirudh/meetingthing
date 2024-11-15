@@ -32,6 +32,9 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
   const id = (await params).id;
   const meeting = await database.query.meetingsTable.findFirst({
     where: (meetings, { eq }) => eq(meetings.id, id),
+    with: {
+      transcripts: true,
+    }
   });
   if (!meeting) return notFound();
 
