@@ -27,11 +27,11 @@ export const POST = async (request: Request): Promise<Response> => {
       );
     }
 
-    log.debug(`event received: ${body?.event}`);
+    log.info(`event received: ${body?.event}`);
 
     if (isStatusChangeWebhook(body)) {
       const { code, created_at } = body.data.status;
-      log.debug('status change webhook received', { code, created_at });
+      log.info('status change webhook received', { code, created_at });
     } else if (isSuccessWebhook(body)) {
       //   const meeting = await database.query.meetingsTable.findFirst({
       //     where: (meetings, { eq }) => eq(meetings.botId, body?.event?.data?.bot_id),
@@ -46,7 +46,7 @@ export const POST = async (request: Request): Promise<Response> => {
         });
 
       if (meeting[0]) {
-        log.debug(`meeting updated with id: ${meeting[0].id}`);
+        log.info(`meeting updated with id: ${meeting[0].id}`);
       } else {
         log.error(`failed to update meeting with bot_id: ${body.data.bot_id}`);
       }
