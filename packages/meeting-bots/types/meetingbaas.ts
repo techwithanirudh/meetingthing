@@ -1,3 +1,7 @@
+export interface RecordMeetingResponse {
+  bot_id: string;
+}
+
 // Bot Status Types
 export type BotStatusCode =
   | 'joining_call'
