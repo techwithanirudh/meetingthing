@@ -5,12 +5,11 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "analyze": "ANALYZE=true pnpm build",
     "test": "vitest run"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.3.0",
+    "@clerk/nextjs": "^6.3.4",
     "@hookform/resolvers": "^3.9.1",
     "@repo/analytics": "workspace:*",
     "@repo/database": "workspace:*",
@@ -21,7 +20,7 @@
     "@repo/security": "workspace:*",
     "@repo/seo": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
-    "@sentry/nextjs": "^8.37.1",
+    "@sentry/nextjs": "^8.38.0",
     "lucide-react": "^0.456.0",
     "next": "15.0.3",
     "next-safe-action": "^7.9.9",
@@ -41,6 +40,6 @@
     "@vitejs/plugin-react": "^4.3.3",
     "jsdom": "^25.0.1",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.5"
   }
 }
