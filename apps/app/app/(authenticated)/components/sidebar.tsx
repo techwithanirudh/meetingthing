@@ -35,7 +35,6 @@ import {
 import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import { cn } from '@repo/design-system/lib/utils';
 import {
-  AnchorIcon,
   BookOpenIcon,
   BotIcon,
   ChevronRightIcon,
@@ -67,7 +66,6 @@ const data = {
       icon: LibraryIcon,
       isActive: true,
     },
-
     // {
     //   title: 'Models',
     //   url: '#',
@@ -135,11 +133,6 @@ const data = {
     },
   ],
   navSecondary: [
-    {
-      title: 'Webhooks',
-      url: '/webhooks',
-      icon: AnchorIcon,
-    },
     {
       title: 'Support',
       url: '#',

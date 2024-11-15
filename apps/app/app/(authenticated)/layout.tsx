@@ -1,7 +1,8 @@
+import { request } from '@arcjet/next';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { SidebarProvider } from '@repo/design-system/components/ui/sidebar';
 import { showBetaFeature } from '@repo/feature-flags';
-import arcjet, { detectBot, request } from '@repo/security';
+import arcjet, { detectBot } from '@repo/security';
 import type { ReactNode } from 'react';
 import { PostHogIdentifier } from './components/posthog-identifier';
 import { GlobalSidebar } from './components/sidebar';
