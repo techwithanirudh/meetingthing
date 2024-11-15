@@ -17,6 +17,10 @@ export const recordMeeting = actionClient
       const { userId } = await auth();
       const user = await currentUser();
 
+      if (!userId) {
+        return { failure: 'User not authenticated' };
+      }
+
       const botName = user?.firstName
         ? `${user.firstName}'s AI Notetaker`
         : 'AI Notetaker';
@@ -27,7 +31,7 @@ export const recordMeeting = actionClient
           name: 'Impromptu Meeting',
           provider: 'meetingbaas',
           status: 'loading',
-          userId,
+          userId: userId,
           botId: data.botId,
         })
         .returning({
