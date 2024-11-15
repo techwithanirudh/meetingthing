@@ -61,17 +61,7 @@ export const transcriptsTable = pgTable('transcripts', {
         word: string;
       }>
     >()
-    .notNull(),
-  createdAt: timestamp('created_at', {
-    mode: 'date',
-    withTimezone: true,
-  })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp('updated_at', {
-    mode: 'date',
-    withTimezone: true,
-  }),
+    .notNull()
 });
 
 export const transcriptsRelations = relations(transcriptsTable, ({ one }) => ({
