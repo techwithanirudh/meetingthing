@@ -17,7 +17,6 @@ import {
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
-import { useParams } from 'next/navigation';
 
 const title = 'Acme Inc | Meeting';
 const description = 'My application.';
@@ -27,7 +26,9 @@ export const metadata: Metadata = {
   description,
 };
 
-const Meeting = ({ params }: { params: { id: string } }) => {
+const Meeting = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const id = (await params).id;
+
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2 justify-between w-full">
@@ -41,15 +42,13 @@ const Meeting = ({ params }: { params: { id: string } }) => {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>{params.id}</BreadcrumbPage>
+                <BreadcrumbPage>{id}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </header>
-      <div>
-        {params.id}
-      </div>
+      <div>{id}</div>
     </>
   );
 };
