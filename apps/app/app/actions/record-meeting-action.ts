@@ -24,7 +24,8 @@ export const recordMeeting = actionClient
         .insert(meetingsTable)
         .values({
           name: 'New Meeting',
-          type: 'meetingbaas',
+          provider: 'meetingbaas',
+          botId: data.botId,
           status: 'loaded',
         })
         .returning({

@@ -9,7 +9,11 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
-import { Card, CardHeader, CardTitle } from '@repo/design-system/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+} from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
@@ -41,7 +45,9 @@ const App = async () => {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <RecordMeeting />
+        <div className="px-4">
+          <RecordMeeting />
+        </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -57,6 +63,20 @@ const App = async () => {
             </Link>
           ))}
         </div>
+
+        {meetings.length === 0 && (
+          <div className="min-h-[100vh] flex-1 flex flex-col items-center justify-center rounded-xl bg-muted/50 md:min-h-min">
+            <div className="text-left">
+              <h2 className="text-xl font-semibold">No meetings found.</h2>
+              <p className="text-muted-foreground mt-2">
+                Get started by recording a new meeting.
+              </p>
+              <div className="mt-4">
+                <RecordMeeting />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

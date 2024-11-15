@@ -15,7 +15,7 @@ export function RecordMeeting() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="mx-4 gap-2">
+        <Button className="gap-2">
           <Disc2Icon /> Record
         </Button>
       </DialogTrigger>

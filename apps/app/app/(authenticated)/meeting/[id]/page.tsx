@@ -11,12 +11,14 @@ import {
 } from '@repo/design-system/components/ui/breadcrumb';
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 const title = 'Acme Inc | Meeting';
 const description = 'My application.';
@@ -26,8 +28,12 @@ export const metadata: Metadata = {
   description,
 };
 
-const Meeting = async ({ params }: { params: Promise<{ id: string }> }) => {
+const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
   const id = (await params).id;
+  const meeting = await database.query.meetingsTable.findFirst({
+    where: (meetings, { eq }) => eq(meetings.id, id),
+  });
+  if (!meeting) return notFound();
 
   return (
     <>
@@ -48,7 +54,14 @@ const Meeting = async ({ params }: { params: Promise<{ id: string }> }) => {
           </Breadcrumb>
         </div>
       </header>
-      <div>{id}</div>
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
+          <CardHeader>
+            <CardTitle>{meeting?.name}</CardTitle>
+            <CardDescription>{meeting?.botId}</CardDescription>
+          </CardHeader>
+        </div>
+      </div>
     </>
   );
 };
