@@ -10,9 +10,9 @@ import { Stats } from './components/stats';
 import { Testimonials } from './components/testimonials';
 
 const meta = {
-  title: 'MeetingThing',
+  title: 'From zero to production in minutes.',
   description:
-    "MeetingThing is a production-grade boilerplate for modern Next.js apps. It's designed to have everything you need to build your new SaaS app as quick as possible. Authentication, billing, analytics, SEO, and more. It's all here.",
+    "next-forge is a production-grade boilerplate for modern Next.js apps. It's designed to have everything you need to build your new SaaS app as quick as possible. Authentication, billing, analytics, SEO, and more. It's all here.",
 };
 
 export const metadata: Metadata = createMetadata(meta);

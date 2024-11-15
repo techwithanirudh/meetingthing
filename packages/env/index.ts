@@ -14,11 +14,6 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
   BETTERSTACK_URL: z.string().min(1).url(),
   ARCJET_KEY: z.string().min(1).startsWith('ajkey_'),
   ANALYZE: z.string().optional(),
-  SVIX_TOKEN: z
-    .string()
-    .min(1)
-    .startsWith('sk_')
-    .or(z.string().min(1).startsWith('testsk_')),
 
   // Added by Sentry Integration, Vercel Marketplace
   SENTRY_ORG: z.string().min(1).optional(),
@@ -28,9 +23,6 @@ const server: Parameters<typeof createEnv>[0]['server'] = {
   VERCEL: z.string().optional(),
   NEXT_RUNTIME: z.enum(['nodejs', 'edge']).optional(),
   FLAGS_SECRET: z.string().min(1),
-
-  // Meeting Bots
-  MEETING_BAAS_API_KEY: z.string().min(1),
 };
 
 const client: Parameters<typeof createEnv>[0]['client'] = {
@@ -71,8 +63,6 @@ export const env = createEnv({
     VERCEL: process.env.VERCEL,
     NEXT_RUNTIME: process.env.NEXT_RUNTIME,
     FLAGS_SECRET: process.env.FLAGS_SECRET,
-    SVIX_TOKEN: process.env.SVIX_TOKEN,
-    MEETING_BAAS_API_KEY: process.env.MEETING_BAAS_API_KEY,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
