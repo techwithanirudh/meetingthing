@@ -1,0 +1,15 @@
+{
+  "name": "@repo/meeting-bots",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/env": "workspace:*",
+    "ky": "^1.7.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

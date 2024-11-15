@@ -37,7 +37,7 @@ const img = (properties: HTMLProps<HTMLImageElement>) => {
   );
 };
 
-const CompanyName = () => 'next-forge';
+const CompanyName = () => 'MeetingThing';
 
 export const Mdx = ({
   code,
