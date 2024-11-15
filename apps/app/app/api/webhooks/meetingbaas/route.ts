@@ -5,7 +5,7 @@ import { meetingsTable } from '@repo/database/src/schema';
 import { env } from '@repo/env';
 import {
   isStatusChangeWebhook,
-  isSuccessWebhook,
+  isCompletionWebhook,
 } from '@repo/meeting-bots/types/meetingbaas';
 import { parseError } from '@repo/observability/error';
 import { log } from '@repo/observability/log';
@@ -32,7 +32,7 @@ export const POST = async (request: Request): Promise<Response> => {
     if (isStatusChangeWebhook(body)) {
       const { code, created_at } = body.data.status;
       log.info('status change webhook received', { code, created_at });
-    } else if (isSuccessWebhook(body)) {
+    } else if (isCompletionWebhook(body)) {
       //   const meeting = await database.query.meetingsTable.findFirst({
       //     where: (meetings, { eq }) => eq(meetings.botId, body?.event?.data?.bot_id),
       //   });
