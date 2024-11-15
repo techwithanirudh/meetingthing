@@ -12,6 +12,7 @@ import type { Metadata } from 'next';
 import { RecordMeeting } from './components/record-meeting';
 import { MeetingsList } from './components/meetings-list';
 import { createMetadata } from '@repo/seo/metadata';
+import { auth } from '@clerk/nextjs/server';
 
 const title = 'Meetings';
 const description = 'View and manage your meetings.';
@@ -19,7 +20,12 @@ const description = 'View and manage your meetings.';
 export const metadata: Metadata = createMetadata({ title, description });
 
 const App = async () => {
-  const meetings = await database.query.meetingsTable.findMany({});
+  const { userId } = await auth();
+  if (!userId) throw new Error('User not found');
+
+  const meetings = await database.query.meetingsTable.findMany({
+    where: (meetings, { eq }) => eq(meetings.userId, userId),
+  });
 
   return (
     <>

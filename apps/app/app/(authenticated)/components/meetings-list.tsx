@@ -1,4 +1,3 @@
-
 import {
   CardContent,
   CardDescription,
@@ -11,6 +10,7 @@ import Link from 'next/link';
 import { cn } from '@repo/design-system/lib/utils';
 import { Check, LoaderCircle } from 'lucide-react';
 import type { SelectMeeting } from '@repo/database/src/schema';
+import { formatDistance } from 'date-fns';
 
 export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
   return (
@@ -23,9 +23,10 @@ export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
             className={cn(
               'flex aspect-video cursor-pointer flex-col rounded-xl bg-muted/50',
               {
-                'bg-muted/30 pointer-events-none': meeting.status !== 'loaded',
+                'bg-muted/30 pointer-events-none select-none': meeting.status !== 'loaded',
               }
             )}
+            aria-disabled={meeting.status !== 'loaded'}
           >
             <CardHeader>
               <CardTitle>{meeting.name}</CardTitle>
@@ -33,7 +34,14 @@ export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
             </CardHeader>
             <CardContent className="flex-1" />
 
-            <CardFooter className="flex w-full justify-end">
+            <CardFooter className="flex w-full justify-between">
+              <p className="text-muted-foreground text-sm">
+                {formatDistance(
+                  new Date(meeting.createdAt),
+                  new Date(),
+                  { addSuffix: true }
+                )}
+              </p>
               {meeting.status === 'loading' ? (
                 <LoaderCircle className="animate-spin" />
               ) : (

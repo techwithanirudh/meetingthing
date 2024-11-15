@@ -33,6 +33,7 @@ export const POST = async (request: Request): Promise<Response> => {
       const { code, created_at } = body.data.status;
       log.info('status change webhook received', { code, created_at });
     } else if (isCompletionWebhook(body)) {
+      // todo: do not run unlessUseriD
       //   const meeting = await database.query.meetingsTable.findFirst({
       //     where: (meetings, { eq }) => eq(meetings.botId, body?.event?.data?.bot_id),
       //   });
