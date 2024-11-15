@@ -56,22 +56,12 @@ export const transcriptsTable = pgTable('transcripts', {
   words: jsonb('words')
     .$type<
       Array<{
-        start_time: number;
-        end_time: number;
-        text: string;
+        start: number;
+        end: number;
+        word: string;
       }>
     >()
-    .notNull(),
-  createdAt: timestamp('created_at', {
-    mode: 'date',
-    withTimezone: true,
-  })
-    .defaultNow()
-    .notNull(),
-  updatedAt: timestamp('updated_at', {
-    mode: 'date',
-    withTimezone: true,
-  }),
+    .notNull()
 });
 
 export const transcriptsRelations = relations(transcriptsTable, ({ one }) => ({

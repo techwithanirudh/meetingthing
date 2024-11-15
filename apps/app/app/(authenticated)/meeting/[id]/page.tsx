@@ -11,6 +11,7 @@ import {
 } from '@repo/design-system/components/ui/breadcrumb';
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -56,11 +57,14 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
+        <div className="min-h-[100vh] flex-1 flex flex-col rounded-xl bg-muted/50 md:min-h-min">
           <CardHeader>
             <CardTitle>{meeting?.name}</CardTitle>
             <CardDescription>{meeting?.botId}</CardDescription>
           </CardHeader>
+          <CardContent className="flex-1">
+            {JSON.stringify(meeting.transcripts)}
+          </CardContent>
         </div>
       </div>
     </>

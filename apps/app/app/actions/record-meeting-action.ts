@@ -32,6 +32,9 @@ export const recordMeeting = actionClient
           id: meetingsTable.id,
         });
 
+
+      revalidatePath('/');
+      
       log.info(`Meeting created with id: ${meeting[0].id}`);
 
       return {
