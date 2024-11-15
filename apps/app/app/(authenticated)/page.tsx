@@ -11,21 +11,15 @@ import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import type { Metadata } from 'next';
 import { RecordMeeting } from './components/record-meeting';
 import { MeetingsList } from './components/meetings-list';
+import { createMetadata } from '@repo/seo/metadata';
 
-const title = 'Acme Inc';
-const description = 'My application.';
+const title = 'Meetings';
+const description = 'View and manage your meetings.';
 
-export const metadata: Metadata = {
-  title,
-  description,
-};
+export const metadata: Metadata = createMetadata({ title, description });
 
 const App = async () => {
-  const meetings = await database.query.meetingsTable.findMany({
-    with: {
-      // attendees: true,
-    }
-  });
+  const meetings = await database.query.meetingsTable.findMany({});
 
   return (
     <>

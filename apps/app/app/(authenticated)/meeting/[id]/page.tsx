@@ -17,16 +17,14 @@ import {
 } from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
+import { createMetadata } from '@repo/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-const title = 'Acme Inc | Meeting';
-const description = 'My application.';
+const title = 'Meeting Details';
+const description = 'View the details of a meeting.';
 
-export const metadata: Metadata = {
-  title,
-  description,
-};
+export const metadata: Metadata = createMetadata({ title, description });
 
 const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
   const id = (await params).id;
