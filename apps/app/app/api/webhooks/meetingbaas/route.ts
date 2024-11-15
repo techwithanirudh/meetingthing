@@ -1,7 +1,7 @@
 import { analytics } from '@repo/analytics/posthog/server';
 import { eq, sql } from '@repo/database/src';
 import { database } from '@repo/database/src/client';
-import { meetingsTable } from '@repo/database/src/schema';
+import { meetingsTable, transcriptsTable } from '@repo/database/src/schema';
 import { env } from '@repo/env';
 import {
   isStatusChangeWebhook,
@@ -40,12 +40,22 @@ export const POST = async (request: Request): Promise<Response> => {
       const meeting = await database
         .update(meetingsTable)
         .set({ status: 'loaded', updatedAt: sql`NOW()` })
-        .where(eq(meetingsTable.botId, body?.data?.bot_id))
+        .where(eq(meetingsTable.botId, body.data.bot_id))
         .returning({
           id: meetingsTable.id,
         });
 
       if (meeting[0]) {
+        if (body.data.transcript) {
+          log.info('inserting transcript segments');
+          await database.insert(transcriptsTable).values(
+            body.data.transcript.map((item) => ({
+              meetingId: meeting[0].id,
+              ...item,
+            }))
+          );
+        }
+
         log.info(`meeting updated with id: ${meeting[0].id}`);
       } else {
         log.error(`failed to update meeting with bot_id: ${body.data.bot_id}`);

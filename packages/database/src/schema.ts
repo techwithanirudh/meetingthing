@@ -56,9 +56,9 @@ export const transcriptsTable = pgTable('transcripts', {
   words: jsonb('words')
     .$type<
       Array<{
-        start_time: number;
-        end_time: number;
-        text: string;
+        start: number;
+        end: number;
+        word: string;
       }>
     >()
     .notNull(),
