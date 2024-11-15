@@ -163,14 +163,14 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
           <SidebarMenu>
             <SidebarMenuItem>
               <ClerkLoading>
-                <div className='flex h-[36px] items-center gap-2 px-2 py-1.5'>
+                <div className="flex h-[36px] items-center gap-2 px-2 py-1.5">
                   <Skeleton className="size-6 rounded-lg" />
                   <Skeleton className="h-4 w-32" />
                 </div>
               </ClerkLoading>
               <div
                 className={cn(
-                  'h-[36px] overflow-hidden transition-all empty:hidden [&>div]:w-full',
+                  'h-[36px] overflow-hidden transition-all empty:hidden [&>div]:w-full empty:hidden',
                   sidebar.open ? '' : '-mx-1'
                 )}
               >
@@ -193,7 +193,11 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
                   defaultOpen={item.isActive}
                 >
                   <SidebarMenuItem>
-                    <SidebarMenuButton asChild tooltip={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={item.title}
+                      isActive={item.isActive}
+                    >
                       <a href={item.url}>
                         <item.icon />
                         <span>{item.title}</span>

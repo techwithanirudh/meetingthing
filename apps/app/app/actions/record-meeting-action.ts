@@ -7,16 +7,21 @@ import { log } from '@repo/observability/log';
 import { RecordMeetingSchema } from '@repo/validators';
 import { revalidatePath } from 'next/cache';
 import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
-import { currentUser } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 
 export const recordMeeting = actionClient
   .schema(RecordMeetingSchema)
   // biome-ignore lint/suspicious/useAwait: <explanation>
   .action(async ({ parsedInput: { meetingURL } }) => {
     if (meetingURL) {
+      const { userId } = await auth();
       const user = await currentUser();
 
-      const botName = user?.fullName
+      if (!userId) {
+        return { failure: 'User not authenticated' };
+      }
+
+      const botName = user?.firstName
         ? `${user.firstName}'s AI Notetaker`
         : 'AI Notetaker';
       const data = await recordMeetingBot(meetingURL, botName);
@@ -26,15 +31,15 @@ export const recordMeeting = actionClient
           name: 'Impromptu Meeting',
           provider: 'meetingbaas',
           status: 'loading',
+          userId: userId,
           botId: data.botId,
         })
         .returning({
           id: meetingsTable.id,
         });
 
-
       revalidatePath('/');
-      
+
       log.info(`Meeting created with id: ${meeting[0].id}`);
 
       return {

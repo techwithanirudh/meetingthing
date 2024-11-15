@@ -1,3 +1,4 @@
+import { auth } from '@clerk/nextjs/server';
 import { database } from '@repo/database/client';
 import { meetingsTable } from '@repo/database/schema';
 
@@ -28,12 +29,15 @@ const description = 'View the details of a meeting.';
 export const metadata: Metadata = createMetadata({ title, description });
 
 const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
+  const { userId } = await auth();
+  if (!userId) throw new Error('User not found');
+
   const id = (await params).id;
   const meeting = await database.query.meetingsTable.findFirst({
-    where: (meetings, { eq }) => eq(meetings.id, id),
+    where: (meetings, { eq, and }) => and(eq(meetings.id, id), eq(meetings.userId, userId)),
     with: {
       transcripts: true,
-    }
+    },
   });
   if (!meeting) return notFound();
 

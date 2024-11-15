@@ -21,6 +21,7 @@ export const meetingStatusEnum = pgEnum('meeting_status', [
 export const meetingsTable = pgTable('meetings', {
   id: serial('id').primaryKey(),
   botId: text('bot_id'), 
+  userId: text('user_id').notNull(),
   provider: meetingProviderEnum().notNull(),
   name: text('name').notNull(),
   status: meetingStatusEnum().notNull(),
