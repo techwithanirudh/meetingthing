@@ -22,6 +22,7 @@ export const meetingsTable = pgTable('meetings', {
   id: serial('id').primaryKey(),
   botId: text('bot_id'), 
   userId: text('user_id').notNull(),
+  orgId: text('org_id'),
   provider: meetingProviderEnum().notNull(),
   name: text('name').notNull(),
   status: meetingStatusEnum().notNull(),

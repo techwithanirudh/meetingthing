@@ -14,7 +14,7 @@ export const recordMeeting = actionClient
   // biome-ignore lint/suspicious/useAwait: <explanation>
   .action(async ({ parsedInput: { meetingURL } }) => {
     if (meetingURL) {
-      const { userId } = await auth();
+      const { userId, orgId } = await auth();
       const user = await currentUser();
 
       if (!userId) {
@@ -32,6 +32,7 @@ export const recordMeeting = actionClient
           provider: 'meetingbaas',
           status: 'loading',
           userId: userId,
+          orgId: orgId,
           botId: data.botId,
         })
         .returning({
