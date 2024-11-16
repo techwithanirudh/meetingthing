@@ -29,12 +29,16 @@ const description = 'View the details of a meeting.';
 export const metadata: Metadata = createMetadata({ title, description });
 
 const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
-  const { userId } = await auth();
+  const { userId, orgId } = await auth();
   if (!userId) throw new Error('User not found');
 
   const id = (await params).id;
   const meeting = await database.query.meetingsTable.findFirst({
-    where: (meetings, { eq, and }) => and(eq(meetings.id, id), eq(meetings.userId, userId)),
+    where: (meetings, { eq, and, or }) =>
+      and(
+        eq(meetings.id, id),
+        or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? ''))
+      ),
     with: {
       transcripts: true,
     },

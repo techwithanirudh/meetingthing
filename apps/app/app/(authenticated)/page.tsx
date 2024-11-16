@@ -20,11 +20,13 @@ const description = 'View and manage your meetings.';
 export const metadata: Metadata = createMetadata({ title, description });
 
 const App = async () => {
-  const { userId } = await auth();
+  const { userId, orgId } = await auth();
   if (!userId) throw new Error('User not found');
 
   const meetings = await database.query.meetingsTable.findMany({
-    where: (meetings, { eq }) => eq(meetings.userId, userId),
+    where: (meetings, { eq, or }) =>
+      // todo: ]this is blank not swecure
+      or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? '')),
   });
 
   return (
