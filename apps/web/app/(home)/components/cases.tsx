@@ -33,12 +33,15 @@ export const Cases = () => {
       <div className="container mx-auto">
         <div className="flex flex-col gap-10">
           <h2 className="text-left font-regular text-xl tracking-tighter md:text-3xl md:text-5xl lg:max-w-xl">
-            Trusted by thousands of businesses worldwide
+            Sync Everything, Customize Anything
           </h2>
           <Carousel setApi={setApi} className="w-full">
             <CarouselContent>
               {Array.from({ length: 15 }).map((_, index) => (
-                <CarouselItem className="basis-1/4 lg:basis-1/6" key={index}>
+                <CarouselItem
+                  className="basis-1/4 lg:basis-1/6"
+                  key={`logo-${index}`}
+                >
                   <div className="flex aspect-square items-center justify-center rounded-md bg-muted p-6">
                     <span className="text-sm">Logo {index + 1}</span>
                   </div>

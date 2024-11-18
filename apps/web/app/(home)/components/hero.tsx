@@ -17,12 +17,12 @@ export const Hero = () => (
         </div>
         <div className="flex flex-col gap-4">
           <h1 className="max-w-2xl text-center font-regular text-5xl tracking-tighter md:text-7xl">
-            This is the start of something new
+            The Future of Meetings Starts Here
           </h1>
           <p className="max-w-2xl text-center text-lg text-muted-foreground leading-relaxed tracking-tight md:text-xl">
-            Managing a small business today is already tough. Avoid further
-            complications by ditching outdated, tedious trade methods. Our goal
-            is to streamline SMB trade, making it easier and faster than ever.
+            Say goodbye to inefficient workflows and scattered tools.
+            MeetingThing simplifies collaboration, helping you focus on what
+            really matters.
           </p>
         </div>
         <div className="flex flex-row gap-3">
