@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@repo/env": "workspace:*",
-    "@clerk/nextjs": "^6.3.4",
+    "@clerk/nextjs": "^6.5.1",
     "svix": "^1.40.0"
   },
   "devDependencies": {
