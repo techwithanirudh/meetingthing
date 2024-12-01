@@ -20,7 +20,7 @@
     "studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.3",
+    "@neondatabase/serverless": "^0.10.4",
     "@repo/env": "workspace:*",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.36.1",
