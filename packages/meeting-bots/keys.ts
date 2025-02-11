@@ -4,9 +4,9 @@ import { z } from 'zod';
 export const keys = () =>
   createEnv({
     server: {
-      MEETING_BAAS_API_KEY: z.string().min(1)
+      MEETING_BAAS_API_KEY: z.string().min(1),
     },
     runtimeEnv: {
-      MEETING_BAAS_API_KEY: process.env.MEETINGBAAS_API_KEY
+      MEETING_BAAS_API_KEY: process.env.MEETING_BAAS_API_KEY,
     },
   });
