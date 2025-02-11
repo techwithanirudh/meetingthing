@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation';
 import { AvatarStack } from './components/avatar-stack';
 import { Cursors } from './components/cursors';
 import { Header } from './components/header';
+import { RecordMeeting } from './components/record-meeting';
 
 const title = 'Acme Inc';
 const description = 'My application.';
@@ -23,32 +24,34 @@ export const metadata: Metadata = {
 };
 
 const App = async () => {
-  const pages = await database.page.findMany();
-  const { orgId } = await auth();
+  const { orgId, userId } = await auth();
 
   if (!orgId) {
     notFound();
   }
 
+  const meetings = await database.query.meetingsTable.findMany({
+    where: (meetings, { eq, or }) =>
+      // todo: ]this is blank not swecure
+      or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? '')),
+  });
+
   return (
     <>
-      <Header pages={['Building Your Application']} page="Data Fetching">
+      <Header pages={[]} page="Meetings">
         {env.LIVEBLOCKS_SECRET && (
           <CollaborationProvider orgId={orgId}>
             <AvatarStack />
             <Cursors />
           </CollaborationProvider>
         )}
+
+        <div className="px-4">
+          <RecordMeeting />
+        </div>
       </Header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          {pages.map((page) => (
-            <div key={page.id} className="aspect-video rounded-xl bg-muted/50">
-              {page.name}
-            </div>
-          ))}
-        </div>
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        <MeetingsList meetings={meetings} />
       </div>
     </>
   );

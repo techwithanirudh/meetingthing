@@ -1,5 +1,6 @@
 'use client';
 
+import { DesignSystemProvider } from '@repo/design-system';
 import { Button } from '@repo/design-system/components/ui/button';
 import { fonts } from '@repo/design-system/lib/fonts';
 import { captureException } from '@sentry/nextjs';
@@ -19,8 +20,18 @@ const GlobalError = ({ error, reset }: GlobalErrorProperties) => {
   return (
     <html lang="en" className={fonts}>
       <body>
-        <h1>Oops, something went wrong</h1>
-        <Button onClick={() => reset()}>Try again</Button>
+        <div className="flex h-full min-h-svh flex-col items-center justify-center">
+          <div className="flex max-w-md flex-1 flex-col justify-center gap-4">
+            <h1 className='font-bold text-4xl'>Error!</h1>
+            <p className="text-lg text-muted-foreground">
+              Oops! Something went wrong. We couldn't complete the requested
+              operation.
+            </p>
+            <Button asChild>
+              <Button onClick={() => reset()}>Try Again</Button>
+            </Button>
+          </div>
+        </div>
       </body>
     </html>
   );

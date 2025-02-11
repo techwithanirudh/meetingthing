@@ -30,7 +30,9 @@ export default authMiddleware(async (_auth, request) => {
         // See https://docs.arcjet.com/bot-protection/identifying-bots
         'CATEGORY:SEARCH_ENGINE', // Allow search engines
         'CATEGORY:PREVIEW', // Allow preview links to show OG images
-        'CATEGORY:MONITOR', // Allow uptime monitoring services
+        'CATEGORY:MONITOR', // Allow uptime monitoring services,
+        'CURL',
+        // 'CATEGORY:TOOL',
       ],
       request
     );
