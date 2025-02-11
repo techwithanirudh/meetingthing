@@ -1,6 +1,6 @@
 'use client';
 
-import { MoonIcon, SunIcon } from 'lucide-react';
+import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { Button } from '../components/ui/button';
 import {
@@ -23,7 +23,7 @@ export const ModeToggle = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
           className="shrink-0 text-foreground"
         >

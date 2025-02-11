@@ -1,14 +1,15 @@
+import { env } from '@/env';
+import { analytics } from '@repo/analytics/posthog/server';
 import type {
   DeletedObjectJSON,
   OrganizationJSON,
   OrganizationMembershipJSON,
   UserJSON,
   WebhookEvent,
-} from '@clerk/nextjs/server';
-import { analytics } from '@repo/analytics/posthog/server';
-import { env } from '@repo/env';
+} from '@repo/auth/server';
 import { log } from '@repo/observability/log';
 import { headers } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
 
 const handleUserCreated = (data: UserJSON) => {
@@ -82,10 +83,12 @@ const handleOrganizationCreated = (data: OrganizationJSON) => {
     },
   });
 
-  analytics.capture({
-    event: 'Organization Created',
-    distinctId: data.created_by,
-  });
+  if (data.created_by) {
+    analytics.capture({
+      event: 'Organization Created',
+      distinctId: data.created_by,
+    });
+  }
 
   return new Response('Organization created', { status: 201 });
 };
@@ -101,10 +104,12 @@ const handleOrganizationUpdated = (data: OrganizationJSON) => {
     },
   });
 
-  analytics.capture({
-    event: 'Organization Updated',
-    distinctId: data.created_by,
-  });
+  if (data.created_by) {
+    analytics.capture({
+      event: 'Organization Updated',
+      distinctId: data.created_by,
+    });
+  }
 
   return new Response('Organization updated', { status: 201 });
 };
@@ -140,6 +145,10 @@ const handleOrganizationMembershipDeleted = (
 };
 
 export const POST = async (request: Request): Promise<Response> => {
+  if (!env.CLERK_WEBHOOK_SECRET) {
+    return NextResponse.json({ message: 'Not configured', ok: false });
+  }
+
   // Get the headers
   const headerPayload = await headers();
   const svixId = headerPayload.get('svix-id');

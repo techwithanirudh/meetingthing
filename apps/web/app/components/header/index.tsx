@@ -1,5 +1,6 @@
 'use client';
 
+import { env } from '@/env';
 import { ModeToggle } from '@repo/design-system/components/mode-toggle';
 import { Button } from '@repo/design-system/components/ui/button';
 import {
@@ -10,7 +11,6 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@repo/design-system/components/ui/navigation-menu';
-import { env } from '@repo/env';
 import { Menu, MoveRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -52,12 +52,15 @@ export const Header = () => {
       href: '/blog',
       description: '',
     },
-    {
+  ];
+
+  if (env.NEXT_PUBLIC_DOCS_URL) {
+    navigationItems.push({
       title: 'Docs',
       href: env.NEXT_PUBLIC_DOCS_URL,
       description: '',
-    },
-  ];
+    });
+  }
 
   const [isOpen, setOpen] = useState(false);
   return (
@@ -95,10 +98,10 @@ export const Header = () => {
                             </Button>
                           </div>
                           <div className="flex h-full flex-col justify-end text-sm">
-                            {item.items?.map((subItem) => (
+                            {item.items?.map((subItem, idx) => (
                               <NavigationMenuLink
                                 href={subItem.href}
-                                key={subItem.title}
+                                key={idx}
                                 className="flex flex-row items-center justify-between rounded px-4 py-2 hover:bg-muted"
                               >
                                 <span>{subItem.title}</span>
@@ -123,15 +126,17 @@ export const Header = () => {
             height={24}
             className="dark:invert"
           />
-          <p className="whitespace-nowrap font-semibold">MeetingThing</p>
+          <p className="whitespace-nowrap font-semibold">next-forge</p>
         </div>
         <div className="flex w-full justify-end gap-4">
           <Button variant="ghost" className="hidden md:inline" asChild>
             <Link href="/contact">Contact us</Link>
           </Button>
           <div className="hidden border-r md:inline" />
-          <ModeToggle />
-          <Button variant="outline" asChild>
+          <div className="hidden md:inline">
+            <ModeToggle />
+          </div>
+          <Button variant="outline" asChild className="hidden md:inline">
             <Link href={`${env.NEXT_PUBLIC_APP_URL}/sign-in`}>Sign in</Link>
           </Button>
           <Button asChild>

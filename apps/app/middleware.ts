@@ -1,6 +1,16 @@
-import { clerkMiddleware } from '@clerk/nextjs/server';
+import { authMiddleware } from '@repo/auth/middleware';
+import {
+  noseconeMiddleware,
+  noseconeOptions,
+  noseconeOptionsWithToolbar,
+} from '@repo/security/middleware';
+import { env } from './env';
 
-export default clerkMiddleware();
+const securityHeaders = env.FLAGS_SECRET
+  ? noseconeMiddleware(noseconeOptionsWithToolbar)
+  : noseconeMiddleware(noseconeOptions);
+
+export default authMiddleware(() => securityHeaders());
 
 export const config = {
   matcher: [

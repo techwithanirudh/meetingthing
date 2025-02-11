@@ -2,35 +2,14 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "ui": "tui",
+  "envMode": "loose",
   "tasks": {
     "build": {
       "dependsOn": ["^build", "test"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": [
-        "ARCJET_KEY",
-        "BETTERSTACK_API_KEY",
-        "BETTERSTACK_URL",
-        "CLERK_SECRET_KEY",
-        "CLERK_WEBHOOK_SECRET",
-        "DATABASE_URL",
-        "FLAGS_SECRET",
-        "STRIPE_SECRET_KEY",
-        "RESEND_AUDIENCE_ID",
-        "RESEND_FROM",
-        "RESEND_TOKEN",
-        "SENTRY_AUTH_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "STRIPE_WEBHOOK_SECRET",
-        "SVIX_TOKEN",
-        "MEETING_BAAS_API_KEY"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", ".basehub/**"]
     },
     "test": {
       "dependsOn": ["^test"]
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
     },
     "analyze": {
       "dependsOn": ["^analyze"]
@@ -39,13 +18,11 @@
       "cache": false,
       "persistent": true
     },
-    "push": {
-      "cache": false,
-      "interactive": true
+    "clean": {
+      "cache": false
     },
-    "studio": {
-      "cache": false,
-      "persistent": true
+    "//#clean": {
+      "cache": false
     }
   }
 }

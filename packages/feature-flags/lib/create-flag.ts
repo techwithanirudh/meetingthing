@@ -1,6 +1,6 @@
-import { auth } from '@clerk/nextjs/server';
 import { analytics } from '@repo/analytics/posthog/server';
-import { unstable_flag as flag } from '@vercel/flags/next';
+import { auth } from '@repo/auth/server';
+import { flag } from '@vercel/flags/next';
 
 export const createFlag = (key: string) =>
   flag({

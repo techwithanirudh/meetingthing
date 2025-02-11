@@ -35,7 +35,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# drizzle
+# prisma
 .env
 
 # react.email
@@ -43,6 +43,3 @@ next-env.d.ts
 
 # Sentry
 .sentryclirc
-
-# content-collections
-.content-collections

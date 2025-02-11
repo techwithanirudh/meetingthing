@@ -1,6 +1,6 @@
-import { clerkClient } from '@clerk/nextjs/server';
+import { env } from '@/env';
 import { analytics } from '@repo/analytics/posthog/server';
-import { env } from '@repo/env';
+import { clerkClient } from '@repo/auth/server';
 import { parseError } from '@repo/observability/error';
 import { log } from '@repo/observability/log';
 import { stripe } from '@repo/payments';
@@ -62,6 +62,10 @@ const handleSubscriptionScheduleCanceled = async (
 };
 
 export const POST = async (request: Request): Promise<Response> => {
+  if (!env.STRIPE_WEBHOOK_SECRET) {
+    return NextResponse.json({ message: 'Not configured', ok: false });
+  }
+
   try {
     const body = await request.text();
     const headerPayload = await headers();

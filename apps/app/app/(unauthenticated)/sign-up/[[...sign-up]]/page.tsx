@@ -7,6 +7,7 @@ const description = 'Enter your details to get started.';
 const SignUp = dynamic(() =>
   import('@repo/auth/components/sign-up').then((mod) => mod.SignUp)
 );
+
 export const metadata: Metadata = createMetadata({ title, description });
 
 const SignUpPage = () => (
