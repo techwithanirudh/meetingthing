@@ -10,8 +10,8 @@ import { Header } from './components/header';
 import { RecordMeeting } from './components/record-meeting';
 import { MeetingsList } from './components/meetings-list';
 
-const title = 'Acme Inc';
-const description = 'My application.';
+const title = 'Meetings';
+const description = 'View and manage your meetings.';
 
 const CollaborationProvider = dynamic(() =>
   import('./components/collaboration-provider').then(
