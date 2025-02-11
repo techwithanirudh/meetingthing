@@ -1,13 +1,13 @@
 'use server';
 
 import { actionClient } from '@/lib/safe-action';
-import { database } from '@repo/database/src/client';
-import { meetingsTable } from '@repo/database/src/schema';
+import { auth, currentUser } from '@repo/auth/server';
+import { database } from '@repo/database/client';
+import { meetingsTable } from '@repo/database/schema';
+import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
 import { log } from '@repo/observability/log';
 import { RecordMeetingSchema } from '@repo/validators';
 import { revalidatePath } from 'next/cache';
-import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
-import { auth, currentUser } from '@repo/auth/server';
 
 export const recordMeeting = actionClient
   .schema(RecordMeetingSchema)

@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "6.3.1",
     "@repo/analytics": "workspace:*",
     "@repo/auth": "workspace:*",
@@ -36,6 +37,7 @@
     "next-themes": "^0.4.4",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-hook-form": "^7.54.2",
     "require-in-the-middle": "^7.5.1",
     "zod": "^3.24.1"
   },

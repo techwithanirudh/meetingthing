@@ -1,16 +1,14 @@
-import { env } from '@repo/env';
+import { keys } from './keys';
 import ky from 'ky';
 import type { RecordMeetingResponse } from './types/meetingbaas';
 
-// biome-ignore lint/style/useNamingConvention: url seems nice with caps
 export const recordMeeting = async (meetingURL: string, botName?: string) => {
   const response = await ky
     .post('https://api.meetingbaas.com/bots', {
       headers: {
-        'x-meeting-baas-api-key': env.MEETING_BAAS_API_KEY,
+        'x-meeting-baas-api-key': keys().MEETING_BAAS_API_KEY,
       },
       json: {
-        // biome-ignore lint/style/useNamingConvention: this is how the meetingbaas api works
         meeting_url: meetingURL,
         bot_name: botName ?? 'AI Notetaker',
         reserved: false,

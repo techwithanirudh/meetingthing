@@ -118,6 +118,9 @@ importers:
 
   apps/app:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^3.10.0
+        version: 3.10.0(react-hook-form@7.54.2(react@19.0.0))
       '@prisma/client':
         specifier: 6.3.1
         version: 6.3.1(prisma@6.3.1(typescript@5.7.3))(typescript@5.7.3)
@@ -150,7 +153,7 @@ importers:
         version: link:../../packages/observability
       '@repo/security':
         specifier: workspace:*
-        version: link:../../packages/validators
+        version: link:../../packages/security
       '@repo/seo':
         specifier: workspace:*
         version: link:../../packages/seo
@@ -193,6 +196,9 @@ importers:
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
+      react-hook-form:
+        specifier: ^7.54.2
+        version: 7.54.2(react@19.0.0)
       require-in-the-middle:
         specifier: ^7.5.1
         version: 7.5.1
@@ -341,12 +347,6 @@ importers:
         specifier: ^5
         version: 5.6.3
 
-  apps/studio:
-    devDependencies:
-      prisma:
-        specifier: 6.3.1
-        version: 6.3.1(typescript@5.7.3)
-
   apps/web:
     dependencies:
       '@arcjet/next':
@@ -378,7 +378,7 @@ importers:
         version: link:../../packages/rate-limit
       '@repo/security':
         specifier: workspace:*
-        version: link:../../packages/validators
+        version: link:../../packages/security
       '@repo/seo':
         specifier: workspace:*
         version: link:../../packages/seo
@@ -13732,9 +13732,11 @@ snapshots:
       prisma: 6.3.1(typescript@5.7.3)
       typescript: 5.7.3
 
-  '@prisma/debug@6.3.1': {}
+  '@prisma/debug@6.3.1':
+    optional: true
 
-  '@prisma/engines-version@6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0': {}
+  '@prisma/engines-version@6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0':
+    optional: true
 
   '@prisma/engines@6.3.1':
     dependencies:
@@ -13742,16 +13744,19 @@ snapshots:
       '@prisma/engines-version': 6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0
       '@prisma/fetch-engine': 6.3.1
       '@prisma/get-platform': 6.3.1
+    optional: true
 
   '@prisma/fetch-engine@6.3.1':
     dependencies:
       '@prisma/debug': 6.3.1
       '@prisma/engines-version': 6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0
       '@prisma/get-platform': 6.3.1
+    optional: true
 
   '@prisma/get-platform@6.3.1':
     dependencies:
       '@prisma/debug': 6.3.1
+    optional: true
 
   '@prisma/instrumentation@5.22.0':
     dependencies:
@@ -20562,6 +20567,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       typescript: 5.7.3
+    optional: true
 
   prismjs@1.29.0: {}
 

@@ -1,11 +1,23 @@
 {
   "name": "@repo/database",
   "version": "0.0.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "default": "./index.ts"
+    },
+    "./client": {
+      "types": "./client.ts",
+      "default": "./client.ts"
+    },
+    "./schema": {
+      "types": "./schema.ts",
+      "default": "./schema.ts"
+    }
+  },
   "scripts": {
-    "analyze": "prisma generate --no-hints",
-    "build": "prisma generate --no-hints",
+    "push": "drizzle-kit push",
+    "studio": "drizzle-kit studio",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },

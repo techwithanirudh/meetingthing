@@ -9,7 +9,7 @@ import { RecordMeeting } from './record-meeting';
 import Link from 'next/link';
 import { cn } from '@repo/design-system/lib/utils';
 import { Check, LoaderCircle } from 'lucide-react';
-import type { SelectMeeting } from '@repo/database/src/schema';
+import type { SelectMeeting } from '@repo/database/schema';
 import { formatDistance } from 'date-fns';
 
 export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {

@@ -1,11 +1,11 @@
 import { analytics } from '@repo/analytics/posthog/server';
-import { eq, sql } from '@repo/database/src';
-import { database } from '@repo/database/src/client';
-import { meetingsTable, transcriptsTable } from '@repo/database/src/schema';
-import { env } from '@repo/env';
+import { database } from '@repo/database/client';
+import { eq, sql } from '@repo/database';
+import { meetingsTable, transcriptsTable } from '@repo/database/schema';
+import { env } from '@/env';
 import {
-  isStatusChangeWebhook,
   isCompletionWebhook,
+  isStatusChangeWebhook,
 } from '@repo/meeting-bots/types/meetingbaas';
 import { parseError } from '@repo/observability/error';
 import { log } from '@repo/observability/log';

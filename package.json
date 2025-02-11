@@ -16,7 +16,8 @@
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x react-day-picker,tailwindcss && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/design-system",
-    "migrate": "cd packages/database && npx prisma format && npx prisma generate && npx prisma db push",
+    "db:push": "turbo -F @repo/database push",
+    "db:studio": "turbo -F @repo/database studio",
     "clean": "git clean -xdf node_modules"
   },
   "devDependencies": {
