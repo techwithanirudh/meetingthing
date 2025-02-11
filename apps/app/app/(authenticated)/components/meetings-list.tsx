@@ -1,3 +1,4 @@
+import type { SelectMeeting } from '@repo/database/schema';
 import {
   CardContent,
   CardDescription,
@@ -5,12 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@repo/design-system/components/ui/card';
-import { RecordMeeting } from './record-meeting';
-import Link from 'next/link';
 import { cn } from '@repo/design-system/lib/utils';
-import { Check, LoaderCircle } from 'lucide-react';
-import type { SelectMeeting } from '@repo/database/schema';
 import { formatDistance } from 'date-fns';
+import { Check, LoaderCircle } from 'lucide-react';
+import Link from 'next/link';
+import { RecordMeeting } from './record-meeting';
 
 export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
   return (
@@ -23,7 +23,7 @@ export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
             className={cn(
               'flex aspect-video cursor-pointer flex-col rounded-xl bg-muted/50',
               {
-                'bg-muted/30 pointer-events-none select-none':
+                'pointer-events-none select-none bg-muted/30':
                   meeting.status !== 'loaded',
               }
             )}
@@ -52,10 +52,10 @@ export function MeetingsList({ meetings }: { meetings: SelectMeeting[] }) {
       </div>
 
       {meetings.length === 0 && (
-        <div className="min-h-[100vh] flex-1 flex flex-col items-center justify-center rounded-xl bg-muted/50 md:min-h-min">
+        <div className="flex min-h-[100vh] flex-1 flex-col items-center justify-center rounded-xl bg-muted/50 md:min-h-min">
           <div className="text-left">
-            <h2 className="text-xl font-semibold">No meetings found.</h2>
-            <p className="text-muted-foreground mt-2">
+            <h2 className="font-semibold text-xl">No meetings found.</h2>
+            <p className="mt-2 text-muted-foreground">
               Get started by recording a new meeting.
             </p>
             <div className="mt-4">

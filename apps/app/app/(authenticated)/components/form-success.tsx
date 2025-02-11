@@ -10,7 +10,7 @@ export const FormSuccess = ({ message }: FormSuccessProps) => {
   }
 
   return (
-    <div className='flex items-center gap-x-2 rounded-md bg-emerald-500/15 p-3 text-emerald-500 text-sm'>
+    <div className="flex items-center gap-x-2 rounded-md bg-emerald-500/15 p-3 text-emerald-500 text-sm">
       <CheckCircle size={16} />
       <p>{message}</p>
     </div>

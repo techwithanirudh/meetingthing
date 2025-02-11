@@ -1,8 +1,8 @@
-import { analytics } from '@repo/analytics/posthog/server';
-import { database } from '@repo/database/client';
-import { eq, sql } from '@repo/database';
-import { meetingsTable, transcriptsTable } from '@repo/database/schema';
 import { env } from '@/env';
+import { analytics } from '@repo/analytics/posthog/server';
+import { eq, sql } from '@repo/database';
+import { database } from '@repo/database/client';
+import { meetingsTable, transcriptsTable } from '@repo/database/schema';
 import {
   isCompletionWebhook,
   isStatusChangeWebhook,

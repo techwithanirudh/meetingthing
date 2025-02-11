@@ -1,6 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
 import { database } from '@repo/database/client';
-import { meetingsTable } from '@repo/database/schema';
 
 import {
   Breadcrumb,
@@ -11,7 +10,6 @@ import {
   BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -30,7 +28,9 @@ export const metadata: Metadata = createMetadata({ title, description });
 
 const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
   const { userId, orgId } = await auth();
-  if (!userId) throw new Error('User not found');
+  if (!orgId) {
+    throw new Error('User not found');
+  }
 
   const id = (await params).id;
   const meeting = await database.query.meetingsTable.findFirst({
@@ -43,11 +43,13 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
       transcripts: true,
     },
   });
-  if (!meeting) return notFound();
+  if (!meeting) {
+    return notFound();
+  }
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2 justify-between w-full">
+      <header className="flex h-16 w-full shrink-0 items-center justify-between gap-2">
         <div className="flex items-center justify-between gap-2 px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
@@ -65,7 +67,7 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="min-h-[100vh] flex-1 flex flex-col rounded-xl bg-muted/50 md:min-h-min">
+        <div className="flex min-h-[100vh] flex-1 flex-col rounded-xl bg-muted/50 md:min-h-min">
           <CardHeader>
             <CardTitle>{meeting?.name}</CardTitle>
             <CardDescription>{meeting?.botId}</CardDescription>

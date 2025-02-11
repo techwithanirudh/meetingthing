@@ -8,6 +8,7 @@ import { AvatarStack } from './components/avatar-stack';
 import { Cursors } from './components/cursors';
 import { Header } from './components/header';
 import { RecordMeeting } from './components/record-meeting';
+import { MeetingsList } from './components/meetings-list';
 
 const title = 'Acme Inc';
 const description = 'My application.';

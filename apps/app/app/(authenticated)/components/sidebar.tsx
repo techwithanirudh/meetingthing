@@ -1,19 +1,15 @@
 'use client';
 
-import { ClerkLoading, OrganizationSwitcher, UserButton } from '@repo/auth/client';
-import { ModeToggle } from '@repo/design-system/components/mode-toggle';
+import {
+  ClerkLoading,
+  OrganizationSwitcher,
+  UserButton,
+} from '@repo/auth/client';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@repo/design-system/components/ui/collapsible';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@repo/design-system/components/ui/dropdown-menu';
 import {
   Sidebar,
   SidebarContent,
@@ -36,24 +32,13 @@ import { Skeleton } from '@repo/design-system/components/ui/skeleton';
 import { cn } from '@repo/design-system/lib/utils';
 import {
   AnchorIcon,
-  BookOpenIcon,
-  BotIcon,
   ChevronRightIcon,
-  FolderIcon,
-  FrameIcon,
   LibraryIcon,
   LifeBuoyIcon,
-  MapIcon,
-  MoreHorizontalIcon,
-  PieChartIcon,
-  PresentationIcon,
   SendIcon,
   Settings2Icon,
-  ShareIcon,
-  SquareTerminalIcon,
-  Trash2Icon,
 } from 'lucide-react';
-import { Suspense, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 type GlobalSidebarProperties = {
   readonly children: ReactNode;
@@ -170,7 +155,7 @@ export const GlobalSidebar = ({ children }: GlobalSidebarProperties) => {
               </ClerkLoading>
               <div
                 className={cn(
-                  'h-[36px] overflow-hidden transition-all empty:hidden [&>div]:w-full empty:hidden',
+                  'h-[36px] overflow-hidden transition-all empty:hidden empty:hidden [&>div]:w-full',
                   sidebar.open ? '' : '-mx-1'
                 )}
               >

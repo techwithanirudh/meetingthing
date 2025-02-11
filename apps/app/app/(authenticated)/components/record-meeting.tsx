@@ -1,5 +1,4 @@
-import React from 'react';
-import { RecordMeetingForm } from './record-meeting-form';
+import { Button } from '@repo/design-system/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,8 +7,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@repo/design-system/components/ui/dialog';
-import { Button } from '@repo/design-system/components/ui/button';
 import { Disc2Icon } from 'lucide-react';
+import { RecordMeetingForm } from './record-meeting-form';
 
 export function RecordMeeting() {
   return (
