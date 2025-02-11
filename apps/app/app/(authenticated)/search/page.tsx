@@ -21,15 +21,8 @@ export const generateMetadata = async ({
 };
 
 const SearchPage = async ({ searchParams }: SearchPageProperties) => {
+  const { orgId, userId } = await auth();
   const { q } = await searchParams;
-  const meetings = await database.query.meetingsTable.findMany({
-    where: {
-      name: {
-        contains: q,
-      },
-    },
-  });
-  const { orgId } = await auth();
 
   if (!orgId) {
     notFound();
@@ -38,6 +31,17 @@ const SearchPage = async ({ searchParams }: SearchPageProperties) => {
   if (!q) {
     redirect('/');
   }
+
+  const meetings = await database.query.meetingsTable.findMany({
+    where: (meetings, { eq, and, or }) =>
+      and(
+        eq(meetings.name, q),
+        or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? ''))
+      ),
+    with: {
+      transcripts: true,
+    },
+  });
 
   return (
     <>
