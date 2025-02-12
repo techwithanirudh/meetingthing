@@ -1,1 +1,1 @@
-git config --global --add safe.directory /workspaces/transcript-seeker
+git config --global --add safe.directory /workspaces/meetingthing
