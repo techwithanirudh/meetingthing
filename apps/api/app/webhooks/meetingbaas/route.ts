@@ -47,7 +47,7 @@ export const POST = async (request: Request): Promise<Response> => {
         });
 
       if (meeting[0]) {
-        if (body.data.transcript) {
+        if (body.data.transcript && body.data.transcript.length > 0) {
           log.info('inserting transcript segments');
           await database.insert(transcriptsTable).values(
             body.data.transcript.map((item) => ({
