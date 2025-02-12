@@ -16,16 +16,16 @@ export const POST = async (request: Request): Promise<Response> => {
     const body = await request.json();
     const apiKey = request.headers.get('x-meeting-baas-api-key');
 
-    if (apiKey !== env.MEETING_BAAS_API_KEY) {
-      log.error('Error verifying webhook:', { error: 'invalid api key' });
-      return Response.json(
-        {
-          message: 'something went wrong',
-          ok: false,
-        },
-        { status: 401 }
-      );
-    }
+    // if (apiKey !== env.MEETING_BAAS_API_KEY) {
+    //   log.error('Error verifying webhook:', { error: 'invalid api key' });
+    //   return Response.json(
+    //     {
+    //       message: 'something went wrong',
+    //       ok: false,
+    //     },
+    //     { status: 401 }
+    //   );
+    // }
 
     log.info(`event received: ${body?.event}`);
 
