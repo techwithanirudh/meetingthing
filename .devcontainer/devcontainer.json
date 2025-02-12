@@ -11,7 +11,10 @@
 		// Http
 		3000,
 		3001,
-		5173
+        3002,
+        3003,
+        3004,
+        6006
 	],
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
 	// More info: https://containers.dev/implementors/json_reference/#port-attributes
