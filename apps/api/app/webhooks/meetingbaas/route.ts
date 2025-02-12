@@ -14,7 +14,7 @@ import { NextResponse } from 'next/server';
 export const POST = async (request: Request): Promise<Response> => {
   try {
     const body = await request.json();
-    const apiKey = request.headers.get('x-meeting-baas-api-key');
+    const apiKey = request.headers.get('x-meeting-baas-api-key') || request.headers.get('x-spoke-api-key');
 
     if (apiKey !== env.MEETING_BAAS_API_KEY) {
       log.error('Error verifying webhook:', { error: 'invalid api key' });
