@@ -26,14 +26,14 @@ export const secure = async (
       // Protect against common attacks with Arcjet Shield
       shield({
         // Will block requests. Use "DRY_RUN" to log only
-        mode: 'DRY_RUN',
+        mode: 'LIVE',
       }),
       // Other rules are added in different routes
     ],
   });
 
   const req = sourceRequest ?? (await request());
-  const aj = base.withRule(detectBot({ mode: 'DRY_RUN', allow }));
+  const aj = base.withRule(detectBot({ mode: 'LIVE', allow }));
   const decision = await aj.protect(req);
 
   if (decision.isDenied()) {
