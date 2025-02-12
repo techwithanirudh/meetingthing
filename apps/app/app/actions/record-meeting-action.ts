@@ -2,8 +2,7 @@
 
 import { actionClient } from '@/lib/safe-action';
 import { auth, currentUser } from '@repo/auth/server';
-import { database } from '@repo/database/client';
-import { meetingsTable } from '@repo/database/schema';
+import { createMeeting } from '@repo/database/queries';
 import { recordMeeting as recordMeetingBot } from '@repo/meeting-bots';
 import { log } from '@repo/observability/log';
 import { RecordMeetingSchema } from '@repo/validators';
@@ -25,19 +24,14 @@ export const recordMeeting = actionClient
         ? `${user.firstName}'s AI Notetaker`
         : 'AI Notetaker';
       const data = await recordMeetingBot(meetingURL, botName);
-      const meeting = await database
-        .insert(meetingsTable)
-        .values({
-          name: 'Impromptu Meeting',
-          provider: 'meetingbaas',
-          status: 'loading',
-          userId: userId,
-          orgId: orgId,
-          botId: data.botId,
-        })
-        .returning({
-          id: meetingsTable.id,
-        });
+      const meeting = await createMeeting({
+        name: 'Impromptu Meeting',
+        provider: 'meetingbaas',
+        status: 'loading',
+        userId: userId,
+        orgId: orgId,
+        botId: data.botId,
+      })
 
       revalidatePath('/');
 
