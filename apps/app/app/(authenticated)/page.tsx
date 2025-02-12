@@ -9,6 +9,9 @@ import { Cursors } from './components/cursors';
 import { Header } from './components/header';
 import { RecordMeeting } from './components/record-meeting';
 import { MeetingsList } from './components/meetings-list';
+import {
+  getMeetingsByAuth
+} from '@repo/database/queries';
 
 const title = 'Meetings';
 const description = 'View and manage your meetings.';
@@ -31,11 +34,7 @@ const App = async () => {
     notFound();
   }
 
-  const meetings = await database.query.meetingsTable.findMany({
-    where: (meetings, { eq, or }) =>
-      // todo: ]this is blank not swecure
-      or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? '')),
-  });
+  const meetings = await getMeetingsByAuth({ userId, orgId });
 
   return (
     <>
