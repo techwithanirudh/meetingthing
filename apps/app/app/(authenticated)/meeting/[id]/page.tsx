@@ -73,7 +73,20 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
             <CardDescription>{meeting?.botId}</CardDescription>
           </CardHeader>
           <CardContent className="flex-1">
-            {JSON.stringify(meeting.transcripts)}
+            <Viewer
+              botId={meeting.botId}
+              isLoading={false}
+              meeting={{
+                id: meeting.id,
+                name: meeting.name,
+                botId: meeting.botId,
+                type: meeting.type,
+                assets: meeting.assets,
+                transcripts: meeting.transcripts,
+                endedAt: meeting.endedAt,
+                createdAt: meeting.createdAt,
+              }}
+            />
           </CardContent>
         </div>
       </div>
