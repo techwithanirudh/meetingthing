@@ -24,50 +24,43 @@ import {
 } from '@repo/design-system/components/ui/resizable';
 
 import { useIsMobile } from '@repo/design-system/hooks/use-mobile';
+import type { MediaPlayerInstance } from '@repo/player/client';
 
 interface ViewerProps {
   botId: string;
-  isLoading: boolean;
+  name: string;
   transcripts: TranscriptSegment[];
   mp4: string; // AWS S3 URL
   speakers: string[];
 }
 
-export function Viewer({ botId, isLoading, transcripts, mp4, speakers }: ViewerProps) {
+export function Viewer({ botId, name, transcripts, mp4, speakers }: ViewerProps) {
   const isMobile = useIsMobile();
+  const [currentTime, setCurrentTime] = React.useState(0);
+  const [player, setPlayer] = React.useState<MediaPlayerInstance>();
 
-  // const handleSeek = React.useCallback(
-  //   (time: number) => {
-  //     if (player) {
-  //       player.currentTime = time;
-  //     }
-  //   },
-  //   [player]
-  // );
+  const handleTimeUpdate = React.useCallback((time: number) => {
+    setCurrentTime(time);
+  }, []);
+
+  const handleSeek = React.useCallback(
+    (time: number) => {
+      if (player) {
+        player.currentTime = time;
+      }
+    },
+    [player]
+  );
+
+  const setPlayerRef = React.useCallback((player: MediaPlayerInstance) => {
+    setPlayer(player);
+  }, []);
 
   return (
-    <div className="min-h-svh">
-      <div className="w-full">
-        <header className="sticky top-0 flex h-16 shrink-0 items-center justify-between gap-2 bg-background px-4">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/">Home</Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Recording</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </header>
-      </div>
+    <div className="w-full">
       <div className={cn('flex justify-center', 'w-full')}>
         <ResizablePanelGroup
-          className="flex min-h-[200dvh] lg:min-h-[calc(100svh-theme(spacing.16))]"
+          className="flex min-h-[200dvh] lg:min-h-[calc(100svh-theme(spacing.24))]"
           direction={isMobile ? 'vertical' : 'horizontal'}
         >
           <ResizablePanel defaultSize={50} minSize={25}>
@@ -78,10 +71,7 @@ export function Viewer({ botId, isLoading, transcripts, mp4, speakers }: ViewerP
               <ResizablePanel defaultSize={50} minSize={25}>
                 {mp4 && (
                   <VideoPlayer
-                    src={{
-                      src: mp4,
-                      type: 'video/mp4',
-                    }}
+                    src={mp4}
                     onTimeUpdate={handleTimeUpdate}
                     setPlayer={setPlayerRef}
                     assetTitle={name}
@@ -104,12 +94,11 @@ export function Viewer({ botId, isLoading, transcripts, mp4, speakers }: ViewerP
                       </Button>
                     </div>
                   </div>
-                  {isLoading && <div className="flex px-0.5">Loading...</div>}
-                  <Transcript
+                  {/* <Transcript
                     transcript={transcripts}
                     // currentTime={currentTime}
                     // onWordClick={handleSeek}
-                  />
+                  /> */}
                 </div>
               </ResizablePanel>
             </ResizablePanelGroup>

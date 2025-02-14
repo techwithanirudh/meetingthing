@@ -44,6 +44,7 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
       transcripts: true,
     },
   });
+
   if (!meeting) {
     return notFound();
   }
@@ -69,23 +70,17 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="flex min-h-[100vh] flex-1 flex-col rounded-xl bg-muted/50 md:min-h-min">
-          <CardHeader>
-            <CardTitle>{meeting?.name}</CardTitle>
-            <CardDescription>{meeting?.botId}</CardDescription>
-          </CardHeader>
-          <CardContent className="flex-1">
-            {meeting ? (
-              <Viewer
-                botId={meeting.botId ?? ""}
-                isLoading={false}
-                transcripts={meeting.transcripts ?? []}
-                mp4={'google.com'}
-                speakers={[]}
-              />
-            ) : (
-              <div>Meeting not found</div>
-            )}
-          </CardContent>
+          {meeting ? (
+            <Viewer
+              botId={meeting.botId ?? ''}
+              name={meeting.name}
+              transcripts={meeting.transcripts ?? []}
+              mp4={'google.com'}
+              speakers={[]}
+            />
+          ) : (
+            <div>Meeting not found</div>
+          )}
         </div>
       </div>
     </>

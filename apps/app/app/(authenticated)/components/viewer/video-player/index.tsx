@@ -3,14 +3,14 @@ import './player.css';
 import type {
   MediaPlayerInstance,
   MediaProviderAdapter,
-} from '@vidstack/react';
+} from '@repo/player/client';
 import { useEffect, useRef } from 'react';
 import { isHLSProvider, MediaPlayer, MediaProvider } from '@repo/player/client';
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
   DefaultVideoLayout,
-} from '@vidstack/react/player/layouts/default';
+} from '@repo/player/layouts/default';
 import { toast } from 'sonner';
 
 interface PlayerProps {

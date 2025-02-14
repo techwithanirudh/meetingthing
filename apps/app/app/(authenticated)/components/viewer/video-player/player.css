@@ -1,6 +1,4 @@
-@import "@vidstack/react/player/styles/default/theme.css";
-@import "@vidstack/react/player/styles/default/layouts/audio.css";
-@import "@vidstack/react/player/styles/default/layouts/video.css";
+@import "@repo/player/layouts/default/theme.css";
 
 .player {
   --brand-color: #f5f5f5;

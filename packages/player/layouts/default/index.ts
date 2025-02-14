@@ -1,0 +1,1 @@
+export * from '@vidstack/react/player/layouts/default'
