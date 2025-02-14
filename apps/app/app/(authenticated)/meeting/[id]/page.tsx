@@ -20,6 +20,7 @@ import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import { createMetadata } from '@repo/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Viewer } from '../../components/viewer';
 
 const title = 'Meeting Details';
 const description = 'View the details of a meeting.';
@@ -73,20 +74,17 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
             <CardDescription>{meeting?.botId}</CardDescription>
           </CardHeader>
           <CardContent className="flex-1">
-            <Viewer
-              botId={meeting.botId}
-              isLoading={false}
-              meeting={{
-                id: meeting.id,
-                name: meeting.name,
-                botId: meeting.botId,
-                type: meeting.type,
-                assets: meeting.assets,
-                transcripts: meeting.transcripts,
-                endedAt: meeting.endedAt,
-                createdAt: meeting.createdAt,
-              }}
-            />
+            {meeting ? (
+              <Viewer
+                botId={meeting.botId ?? ""}
+                isLoading={false}
+                transcripts={meeting.transcripts ?? []}
+                mp4={'google.com'}
+                speakers={[]}
+              />
+            ) : (
+              <div>Meeting not found</div>
+            )}
           </CardContent>
         </div>
       </div>

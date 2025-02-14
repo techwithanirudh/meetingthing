@@ -5,7 +5,7 @@ import type {
   MediaProviderAdapter,
 } from '@vidstack/react';
 import { useEffect, useRef } from 'react';
-import { isHLSProvider, MediaPlayer, MediaProvider } from '@vidstack/react';
+import { isHLSProvider, MediaPlayer, MediaProvider } from '@repo/player/client';
 import {
   DefaultAudioLayout,
   defaultLayoutIcons,
@@ -30,7 +30,6 @@ export function Player({
 
   useEffect(() => {
     // Subscribe to state updates.
-
     return player.current!.subscribe(({ currentTime, error }) => {
       onTimeUpdate(currentTime);
 
@@ -43,7 +42,7 @@ export function Player({
   function onProviderChange(provider: MediaProviderAdapter | null) {
     // We can configure provider's here.
     if (isHLSProvider(provider)) {
-      provider.library = () => import('hls.js');
+      provider.library = () => import('@repo/player/hls');
     }
   }
 
