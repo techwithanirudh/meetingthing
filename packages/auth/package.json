@@ -19,7 +19,7 @@
   "devDependencies": {
     "@clerk/types": "^4.45.0",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "22.13.1",
+    "@types/node": "22.13.4",
     "@types/react": "19.0.8",
     "@types/react-dom": "^19.0.3",
     "typescript": "^5.7.3"
