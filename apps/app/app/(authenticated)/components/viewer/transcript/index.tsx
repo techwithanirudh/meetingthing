@@ -1,4 +1,4 @@
-import type { Transcript as TranscriptT, Word } from '@/types';
+import type { TranscriptSegment as TranscriptT, TranscriptWord as Word } from '@repo/meeting-bots/types/meetingbaas';
 import {
   useCallback,
   useEffect,
@@ -36,10 +36,10 @@ const Transcript: React.FC<TranscriptProps> = ({
     if (words.length === 0) return null;
     return words.reduce((nearest, word) => {
       const currentDiff = Math.abs(
-        currentTime - (word.start_time + word.end_time) / 2
+        currentTime - (word.start + word.end) / 2
       );
       const nearestDiff = Math.abs(
-        currentTime - (nearest.start_time + nearest.end_time) / 2
+        currentTime - (nearest.start + nearest.end) / 2
       );
       return currentDiff < nearestDiff ? word : nearest;
     });
@@ -97,7 +97,7 @@ const Transcript: React.FC<TranscriptProps> = ({
     }
     const results = transcript.flatMap((entry) =>
       entry.words.filter((word) =>
-        word.text.toLowerCase().includes(searchTerm.toLowerCase())
+        word.word.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
     setSearchResults(results);
@@ -156,9 +156,9 @@ const Transcript: React.FC<TranscriptProps> = ({
                         'bg-yellow-100': searchResults.includes(word),
                       }
                     )}
-                    data-time-start={word.start_time.toFixed(2)}
-                    data-time-end={word.end_time.toFixed(2)}
-                    onClick={() => onWordClick(word.start_time)}
+                    data-time-start={word.start.toFixed(2)}
+                    data-time-end={word.end.toFixed(2)}
+                    onClick={() => onWordClick(word.start)}
                   >
                     {highlightSearchTerm(word.text)}{' '}
                   </p>

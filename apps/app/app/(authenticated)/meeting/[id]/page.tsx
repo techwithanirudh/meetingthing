@@ -1,5 +1,5 @@
 import { auth } from '@repo/auth/server';
-import { database } from '@repo/database/client';
+import { getMeetingById } from '@repo/database/queries';
 
 import {
   Breadcrumb,
@@ -9,17 +9,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@repo/design-system/components/ui/breadcrumb';
-import {
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@repo/design-system/components/ui/card';
 import { Separator } from '@repo/design-system/components/ui/separator';
 import { SidebarTrigger } from '@repo/design-system/components/ui/sidebar';
 import { createMetadata } from '@repo/seo/metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import { Viewer } from '../../components/viewer';
 
 const title = 'Meeting Details';
@@ -34,17 +29,8 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
   }
 
   const id = (await params).id;
-  const meeting = await database.query.meetingsTable.findFirst({
-    where: (meetings, { eq, and, or }) =>
-      and(
-        eq(meetings.id, id),
-        or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? ''))
-      ),
-    with: {
-      transcripts: true,
-    },
-  });
-
+  const meeting = await getMeetingById({ id, userId, orgId });
+` `
   if (!meeting) {
     return notFound();
   }
@@ -70,17 +56,15 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="flex min-h-[100vh] flex-1 flex-col rounded-xl bg-muted/50 md:min-h-min">
-          {meeting ? (
+          <Suspense fallback={<div>Loading meeting details...</div>}>
             <Viewer
               botId={meeting.botId ?? ''}
               name={meeting.name}
-              transcripts={meeting.transcripts ?? []}
+              transcripts={[meeting.transcripts] ?? []}
               mp4={'google.com'}
               speakers={[]}
             />
-          ) : (
-            <div>Meeting not found</div>
-          )}
+          </Suspense>
         </div>
       </div>
     </>

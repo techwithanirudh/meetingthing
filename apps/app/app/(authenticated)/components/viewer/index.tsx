@@ -94,11 +94,11 @@ export function Viewer({ botId, name, transcripts, mp4, speakers }: ViewerProps)
                       </Button>
                     </div>
                   </div>
-                  {/* <Transcript
+                  <Transcript
                     transcript={transcripts}
-                    // currentTime={currentTime}
-                    // onWordClick={handleSeek}
-                  /> */}
+                    currentTime={currentTime}
+                    onWordClick={handleSeek}
+                  />
                 </div>
               </ResizablePanel>
             </ResizablePanelGroup>
