@@ -40,7 +40,7 @@ export const POST = async (request: Request): Promise<Response> => {
 
       const meeting = await database
         .update(meetingsTable)
-        .set({ status: 'loaded', updatedAt: sql`NOW()` })
+        .set({ status: 'loaded', updatedAt: sql`NOW()`, video_url: body.data.mp4, speakers: body.data.speakers })
         .where(eq(meetingsTable.botId, body.data.bot_id))
         .returning({
           id: meetingsTable.id,

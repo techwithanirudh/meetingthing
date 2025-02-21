@@ -30,11 +30,11 @@ interface ViewerProps {
   botId: string;
   name: string;
   transcripts: TranscriptSegment[];
-  mp4: string; // AWS S3 URL
+  video_url: string;
   speakers: string[];
 }
 
-export function Viewer({ botId, name, transcripts, mp4, speakers }: ViewerProps) {
+export function Viewer({ botId, name, transcripts, video_url, speakers }: ViewerProps) {
   const isMobile = useIsMobile();
   const [currentTime, setCurrentTime] = React.useState(0);
   const [player, setPlayer] = React.useState<MediaPlayerInstance>();
@@ -69,9 +69,9 @@ export function Viewer({ botId, name, transcripts, mp4, speakers }: ViewerProps)
               className={cn('flex h-full w-full')}
             >
               <ResizablePanel defaultSize={50} minSize={25}>
-                {mp4 && (
+                {video_url && (
                   <VideoPlayer
-                    src={mp4}
+                    src={video_url}
                     onTimeUpdate={handleTimeUpdate}
                     setPlayer={setPlayerRef}
                     assetTitle={name}

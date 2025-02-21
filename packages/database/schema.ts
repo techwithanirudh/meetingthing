@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import {
   jsonb,
   pgEnum,
@@ -20,11 +20,16 @@ export const meetingStatusEnum = pgEnum('meeting_status', [
 
 export const meetingsTable = pgTable('meetings', {
   id: serial('id').primaryKey(),
-  botId: text('bot_id'),
+  botId: text('bot_id').notNull(),
   userId: text('user_id').notNull(),
   orgId: text('org_id'),
   provider: meetingProviderEnum().notNull(),
   name: text('name').notNull(),
+  video_url: text('video_url').notNull(),
+  speakers: text('speakers')
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
   status: meetingStatusEnum().notNull(),
   endedAt: timestamp('ended_at', {
     mode: 'date',

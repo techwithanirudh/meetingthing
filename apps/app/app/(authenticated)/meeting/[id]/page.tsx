@@ -58,11 +58,11 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
         <div className="flex min-h-[100vh] flex-1 flex-col rounded-xl bg-muted/50 md:min-h-min">
           <Suspense fallback={<div>Loading meeting details...</div>}>
             <Viewer
-              botId={meeting.botId ?? ''}
+              botId={meeting.botId}
               name={meeting.name}
               transcripts={meeting.transcripts ? [meeting.transcripts] : []}
-              mp4={'google.com'}
-              speakers={[]}
+              video_url={meeting.video_url}
+              speakers={meeting.speakers}
             />
           </Suspense>
         </div>
