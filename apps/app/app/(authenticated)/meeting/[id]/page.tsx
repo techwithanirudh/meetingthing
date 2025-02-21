@@ -60,7 +60,7 @@ const Meeting = async ({ params }: { params: Promise<{ id: number }> }) => {
             <Viewer
               botId={meeting.botId ?? ''}
               name={meeting.name}
-              transcripts={[meeting.transcripts] ?? []}
+              transcripts={meeting.transcripts ? [meeting.transcripts] : []}
               mp4={'google.com'}
               speakers={[]}
             />
