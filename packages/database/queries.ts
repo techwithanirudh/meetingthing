@@ -38,7 +38,27 @@ export async function getMeetingsByAuth({ userId, orgId }: { userId: string, org
 
         return meetings;
     } catch (error) {
-        console.error('Failed to get document by id from database');
+        console.error('Failed to get meetings by auth from database');
+        throw error;
+    }
+}
+
+export async function getMeetingById({ id, userId, orgId }: { id: number, userId: string, orgId: string; }) {
+    try {
+        const meeting = await db.query.meetingsTable.findFirst({
+            where: (meetings, { eq, and, or }) =>
+                and(
+                    eq(meetings.id, id),
+                    or(eq(meetings.userId, userId), eq(meetings.orgId, orgId ?? ''))
+                ),
+            with: {
+                transcripts: true,
+            },
+        });
+
+        return meeting;
+    } catch (error) {
+        console.error(`Failed to get meeting with ID ${id} from database`);
         throw error;
     }
 }
